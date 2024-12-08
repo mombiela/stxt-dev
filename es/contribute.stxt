@@ -19,7 +19,7 @@ Document (globalcampus.site/namespace.stxt):Contribuye con nosotros
 		
 		Buenas noticias para los informáticos: un nuevo juguete para explorar :-)	
 		
-	Subheader:  semantictext.info
+	Subheader:  stxt.dev
 	
 	Content:		
 		Nuestro lenguaje tiene infinitas aplicaciones, pero creemos que su definición 
@@ -35,7 +35,7 @@ Document (globalcampus.site/namespace.stxt):Contribuye con nosotros
 		Queremos que esta web sea un punto de referencia en el aprendizaje de STxT.
 		
 	alert: ¡Ayúdanos a que esto sea posible!\
-		[[admin@semantictext.info]]
+		[admin@semantictext.info](mailto:admin@semantictext.info)
 		
 	Content:
 		**Estaremos encantados de poderos contestar lo antes posible ;-)**\
