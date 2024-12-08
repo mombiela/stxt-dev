@@ -25,7 +25,6 @@
 <url><loc>https://stxt.dev/es/index.html</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/es/licence.html</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/es/stxt.html</loc><priority>0.5</priority></url>
-<url><loc>https://stxt.dev/es/_default.html</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/00-oracle.html</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/00-poesia.html</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/00-prologo.html</loc><priority>0.5</priority></url>
@@ -51,5 +50,4 @@
 <url><loc>https://stxt.dev/index.html</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/licence.html</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/stxt.html</loc><priority>0.5</priority></url>
-<url><loc>https://stxt.dev/_default.html</loc><priority>0.5</priority></url>
 </urlset>
