@@ -101,44 +101,44 @@ which is a structure with all the possible node types, as an example.</p>
 						<p>Let's look at an example:</p>
 
 						<pre>Namespace: www.demo.com/document.stxt
-    Document:
-        Title: (1)
-        <strong>Sections: (?)</strong>
-        Description: (1) TEXT
-        Document Type: (1) ENUM
-            :report
-            :article
-            :essay
-        
-    <strong>Sections:</strong>
-        <strong>Section: (+) TEXT</strong></pre>
+	Document:
+    	Title: (1)
+    	<strong>Sections: (?)</strong>
+    	Description: (1) TEXT
+    	Document Type: (1) ENUM
+    		:report
+    		:article
+    		:essay
+		
+	<strong>Sections:</strong>
+    	<strong>Section: (+) TEXT</strong></pre>
 						<p>A simpler way to define it would have been:</p>
 
 						<pre>Namespace: www.demo.com/document.stxt
-    Document:
-        Title: (1)
-        <strong>Sections: (?)</strong>
-            <strong>Section: (+) TEXT</strong>
-        Description: (1) TEXT
-        Document Type: (1) ENUM
-            :report
-            :article
-            :essay</pre>
+	Document:
+    	Title: (1)
+    	<strong>Sections: (?)</strong>
+    		<strong>Section: (+) TEXT</strong>
+    	Description: (1) TEXT
+    	Document Type: (1) ENUM
+    		:report
+    		:article
+    		:essay</pre>
 						<p>Finally, a document from the namespace:</p>
 
 						<pre>Document (www.demo.com/document.stxt):
     Title: First simple document
     Description:
-        This is the
-        first simple document.
-        It has multiple lines
+    	This is the
+    	first simple document.
+    	It has multiple lines
     Document Type: report
     Sections:
-        Section: This is a section
-        Section:
-            This is a section
-            with more than one
-            line.</pre>
+    	Section: This is a section
+    	Section:
+    		This is a section
+    		with more than one
+    		line.</pre>
 						<h2><a id="index_2"></a>Quantity Definition</h2>
 							<p>It is allowed to define the quantity of nodes as follows:</p>
 <ul>

@@ -74,19 +74,19 @@
 							<p>I believe it’s already clear what documents without a namespace are like. Example:</p>
 
 						<pre>Recipe: Macaroni Recipe
-    Description:
-        :This is the description of the macaroni recipe.
-        :Bla, bla, bla
-        :Bla, bla, bla
-    Servings: 3
-    Difficulty: easy
-    Ingredients:
-        Ingredient: (100g) Tomato
-        Ingredient: (240g) Macaroni
-    Steps:
-        Step: (1) Make the sauce
-        Step: (2) Boil the macaroni
-        Step: (3) Mix the macaroni with the sauce and serve</pre>
+	Description:
+		:This is the description of the macaroni recipe.
+		:Bla, bla, bla
+		:Bla, bla, bla
+	Servings: 3
+	Difficulty: easy
+	Ingredients:
+		Ingredient: (100g) Tomato
+		Ingredient: (240g) Macaroni
+	Steps:
+		Step: (1) Make the sauce
+		Step: (2) Boil the macaroni
+		Step: (3) Mix the macaroni with the sauce and serve</pre>
 						<p>Let's delve a little deeper.</p>
 
 						<h2><a id="index_1"></a>Encoding</h2>
@@ -135,22 +135,22 @@ and won’t be considered by programs or in communications.</p>
 						<pre>Recipe: Macaroni Recipe
 <strong># (1) This is a comment</strong>
 <strong># (2) This is also a comment</strong>
-    <strong># (3) This is also a comment</strong>
-    Description:
-        :This is the description of the macaroni recipe.
-        :Bla, bla, bla
-    <strong># (4) This is a comment</strong>    
-        :Bla, bla, bla
-        <strong># (5) This is NOT a comment</strong>
-    Servings: 3
-    Difficulty: easy
-    Ingredients:
-        Ingredient: (100g) Tomato
-        Ingredient: (240g) Macaroni
-    Steps:
-        Step: (1) Make the sauce
-        Step: (2) Boil the macaroni
-        Step: (3) Mix the macaroni with the sauce and serve</pre>
+	<strong># (3) This is also a comment</strong>
+	Description:
+		:This is the description of the macaroni recipe.
+		:Bla, bla, bla
+	<strong># (4) This is a comment</strong>	
+		:Bla, bla, bla
+		<strong># (5) This is NOT a comment</strong>
+	Servings: 3
+	Difficulty: easy
+	Ingredients:
+		Ingredient: (100g) Tomato
+		Ingredient: (240g) Macaroni
+	Steps:
+		Step: (1) Make the sauce
+		Step: (2) Boil the macaroni
+		Step: (3) Mix the macaroni with the sauce and serve</pre>
 						<p>It’s worth noting that <code>(1),(2),(3) and (4)</code> are comments, while
 <code>(5)</code> is not, as it is within the indented text.</p>
 
@@ -169,19 +169,19 @@ they will be equivalent to <code>TEXT</code> type nodes. They are constructed wi
 that start with <code>:</code>, but without a preceding label. Example:</p>
 
 						<pre>Recipe: Macaroni Recipe
-    <strong>Description:</strong>
-        <strong>:This is the description of the macaroni recipe.</strong>
-        <strong>:Bla, bla, bla</strong>
-        <strong>:Bla, bla, bla</strong>
-    Servings: 3
-    Difficulty: easy
-    Ingredients:
-        Ingredient: (100g) Tomato
-        Ingredient: (240g) Macaroni
-    Steps:
-        Step: (1) Make the sauce
-        Step: (2) Boil the macaroni
-        Step: (3) Mix the macaroni with the sauce and serve</pre>
+	<strong>Description:</strong>
+		<strong>:This is the description of the macaroni recipe.</strong>
+		<strong>:Bla, bla, bla</strong>
+		<strong>:Bla, bla, bla</strong>
+	Servings: 3
+	Difficulty: easy
+	Ingredients:
+		Ingredient: (100g) Tomato
+		Ingredient: (240g) Macaroni
+	Steps:
+		Step: (1) Make the sauce
+		Step: (2) Boil the macaroni
+		Step: (3) Mix the macaroni with the sauce and serve</pre>
 						<p>We’ve just seen that the <code>Description</code> node is a MULTILINE node.</p>
 
 						<h2><a id="index_7"></a>(Prefix) Central (Suffix)</h2>
@@ -190,19 +190,19 @@ simple fields are structured with <code>(prefix) central (suffix)</code>.
 All three can appear, or just 1 or 2 of them. Example:</p>
 
 						<pre>Recipe: Macaroni Recipe
-    Description:
-        :This is the description of the macaroni recipe.
-        :Bla, bla, bla
-        :Bla, bla, bla
-    Servings: 3
-    Difficulty: easy
-    Ingredients:
-        Ingredient: <strong>(100g) Tomato</strong>
-        Ingredient: <strong>(240g) Macaroni</strong>
-    Steps:
-        Step: <strong>(1) Make the sauce</strong>
-        Step: <strong>(2) Boil the macaroni</strong>
-        Step: <strong>(3) Mix the macaroni with the sauce and serve</strong></pre>
+	Description:
+		:This is the description of the macaroni recipe.
+		:Bla, bla, bla
+		:Bla, bla, bla
+	Servings: 3
+	Difficulty: easy
+	Ingredients:
+		Ingredient: <strong>(100g) Tomato</strong>
+		Ingredient: <strong>(240g) Macaroni</strong>
+	Steps:
+		Step: <strong>(1) Make the sauce</strong>
+		Step: <strong>(2) Boil the macaroni</strong>
+		Step: <strong>(3) Mix the macaroni with the sauce and serve</strong></pre>
 			
 			  </article>
 	  	

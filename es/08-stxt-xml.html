@@ -117,23 +117,23 @@ supongo que jamás habría creado xml... hubiese hecho algo más natural... ¡HU
 Será un ejemplo fácil:</p>
 
 						<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt; 
-    &lt;!-- This is a line comment  --&gt; 
-    &lt;email&gt;
-    &lt;from&gt;John Smith&lt;/from&gt;
-    &lt;to&gt;Mery Adams&lt;/to&gt; 
-    &lt;cc&gt;Keyla Brown&lt;/cc&gt; 
-    &lt;title&gt;Project report&lt;/title&gt; 
-    &lt;body&gt;Hello Mery!! The book is finished!!&lt;/body&gt; 
+	&lt;!-- This is a line comment  --&gt; 
+	&lt;email&gt;
+	&lt;from&gt;John Smith&lt;/from&gt;
+	&lt;to&gt;Mery Adams&lt;/to&gt; 
+	&lt;cc&gt;Keyla Brown&lt;/cc&gt; 
+	&lt;title&gt;Project report&lt;/title&gt; 
+	&lt;body&gt;Hello Mery!! The book is finished!!&lt;/body&gt; 
 &lt;/email&gt;</pre>
 						<p>Vamos a ver la version de <span class='STxT'>STxT</span>:</p>
 
 						<pre># This is a line comment
 Email (www.example.com/email.stxt):
-    From: John Smith
-    To: Mery Adams
-    Cc: Keyla Brown
-    Title: Project report
-    Body: Hello Mery!! The book is finished!!</pre>
+	From: John Smith
+	To: Mery Adams
+	Cc: Keyla Brown
+	Title: Project report
+	Body: Hello Mery!! The book is finished!!</pre>
 						<p>Creo que salta a la vista una primera característica:</p>
 
 						<div class="row">
@@ -150,11 +150,11 @@ Email (www.example.com/email.stxt):
 is finished!!&lt;/body&gt;&lt;/email&gt;</pre>
 						<pre># This is a line comment
 Email(www.example.com/email.stxt):
-    From:John Smith
-    To:Mery Adams
-    Cc:Keyla Brown
-    Title:Project report
-    Body:Hello Mery!! The book is finished!!</pre>
+	From:John Smith
+	To:Mery Adams
+	Cc:Keyla Brown
+	Title:Project report
+	Body:Hello Mery!! The book is finished!!</pre>
 						<p>Longitud Mínima XML: 225<br>Longitud Mínima <span class='STxT'>STxT</span>: 172</p>
 <p>Si comparamos sin cabecera de xml ni namespace de <span class='STxT'>STxT</span>:</p>
 <p>Longitud Mínima XML: 186<br>Longitud Mínima <span class='STxT'>STxT</span>: 149</p>
@@ -195,15 +195,15 @@ Lo comentaremos más adelante. De momento creedme:</p>
 &lt;cc&gt;Keyla Brown&lt;cc&gt; 
 &lt;title&gt;Project report&lt;/title&gt; 
 &lt;body&gt;
-    Hello Mery!! The book is finished!!
-    &amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt; 
-    &amp;lt;!-- This is a line comment  --&amp;gt; 
-    &amp;lt;email&amp;gt;
-    &amp;lt;from&amp;gt;John Smith&amp;lt;/from&amp;gt;
-    &amp;lt;to&amp;gt;Mery Adams&amp;lt;/to&amp;gt; 
-    &amp;lt;cc&amp;gt;Keyla Brown&amp;lt;cc&amp;gt; 
-    &amp;lt;title&amp;gt;Project report&amp;lt;/title&amp;gt; 
-    &amp;lt;body&amp;gt;Hello Mery!! The book is finished!!&amp;lt;/body&amp;gt; 
+	Hello Mery!! The book is finished!!
+	&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt; 
+	&amp;lt;!-- This is a line comment  --&amp;gt; 
+	&amp;lt;email&amp;gt;
+	&amp;lt;from&amp;gt;John Smith&amp;lt;/from&amp;gt;
+	&amp;lt;to&amp;gt;Mery Adams&amp;lt;/to&amp;gt; 
+	&amp;lt;cc&amp;gt;Keyla Brown&amp;lt;cc&amp;gt; 
+	&amp;lt;title&amp;gt;Project report&amp;lt;/title&amp;gt; 
+	&amp;lt;body&amp;gt;Hello Mery!! The book is finished!!&amp;lt;/body&amp;gt; 
 &lt;/body&gt; 
 &lt;/email&gt;</pre>
 						<p>Y en <span class='STxT'>STxT</span>:</p>
@@ -214,14 +214,14 @@ To: Mery Adams
 Cc: Keyla Brown
 Title: Project report
 Body:
-    Hello Mery!! The book is finished!!
-    &lt;email&gt;
-    &lt;from&gt;John Smith&lt;/from&gt;
-    &lt;to&gt;Mery Adams&lt;/to&gt; 
-    &lt;cc&gt;Keyla Brown&lt;cc&gt; 
-    &lt;title&gt;Project report&lt;/title&gt; 
-    &lt;body&gt;Hello Mery!! The book is finished!!&lt;/body&gt; 
-    &lt;/email&gt;</pre>
+	Hello Mery!! The book is finished!!
+	&lt;email&gt;
+	&lt;from&gt;John Smith&lt;/from&gt;
+	&lt;to&gt;Mery Adams&lt;/to&gt; 
+	&lt;cc&gt;Keyla Brown&lt;cc&gt; 
+	&lt;title&gt;Project report&lt;/title&gt; 
+	&lt;body&gt;Hello Mery!! The book is finished!!&lt;/body&gt; 
+	&lt;/email&gt;</pre>
 						<p>Creo que sobran los comentarios. Es evidente, pero:</p>
 
 						<div class="row">
@@ -232,7 +232,7 @@ Body:
 							<p>Vamos a por un ejemplo:</p>
 
 						<pre>&lt;ejemplo id=&quot;1&quot; show=&quot;false&quot;&gt;
-    Hola Mundo
+	Hola Mundo
 &lt;/ejemplo&gt;</pre>
 						<p>Los atributos en xml siempre han sido motivo de controversia.
 ¿Qué es un atributo y qué debería ser un nodo? Siempre es difícil de decidir.
@@ -253,18 +253,18 @@ Además, esto es <span class='STxT'>STxT</span>. Todo tiene un significado, y to
 <p>El ejemplo anterior en <span class='STxT'>STxT</span> sería:</p>
 
 						<pre>ejemplo(...):
-    id:1
-    show:false
-    texto:Hola Mundo</pre>
+	id:1
+	show:false
+	texto:Hola Mundo</pre>
 						<p>De forma general, siempre podemos hacer algo de la forma:</p>
 
 						<pre>nombre_nodo:
-    metadatos:
-        m1:xxx
-        m2:xxx
-        m3:xxx
-    nodo2:
-    nodo3:</pre>
+	metadatos:
+		m1:xxx
+		m2:xxx
+		m3:xxx
+	nodo2:
+	nodo3:</pre>
 						<h2><a id="index_6"></a>DTD, XSD</h2>
 							<h3><a id="index_7"></a>XSD, DTD y <span class='STxT'>STxT</span></h3>
 							<p>Vamos a hablar de dtd's y xsd's de xml. Son documentos que nos dicen cómo tiene que ser un xml válido.

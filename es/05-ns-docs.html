@@ -103,44 +103,44 @@ el cual es una estructura con todos los tipos de nodo posibles, a modo de ejempl
 						<p>Vamos a ver un ejemplo:</p>
 
 						<pre>Namespace: www.demo.com/documento.stxt
-    Documento:
-        T&iacute;tulo: (1)
-        <strong>Secciones: (?)</strong>
-        Description: (1) TEXT
-        Tipo Documento: (1) ENUM
-            :informe
-            :art&iacute;culo
-            :ensayo
-        
-    <strong>Secciones:</strong>
-        <strong>Seccion: (+) TEXT</strong></pre>
+	Documento:
+    	T&iacute;tulo: (1)
+    	<strong>Secciones: (?)</strong>
+    	Description: (1) TEXT
+    	Tipo Documento: (1) ENUM
+    		:informe
+    		:art&iacute;culo
+    		:ensayo
+		
+	<strong>Secciones:</strong>
+    	<strong>Seccion: (+) TEXT</strong></pre>
 						<p>Otra forma de definirlo más simple hubiera sido:</p>
 
 						<pre>Namespace: www.demo.com/documento.stxt
-    Documento:
-        T&iacute;tulo: (1)
-        <strong>Secciones: (?)</strong>
-            <strong>Seccion: (+) TEXT</strong>
-        Description: (1) TEXT
-        Tipo Documento: (1) ENUM
-            :informe
-            :art&iacute;culo
-            :ensayo</pre>
+	Documento:
+    	T&iacute;tulo: (1)
+    	<strong>Secciones: (?)</strong>
+    		<strong>Seccion: (+) TEXT</strong>
+    	Description: (1) TEXT
+    	Tipo Documento: (1) ENUM
+    		:informe
+    		:art&iacute;culo
+    		:ensayo</pre>
 						<p>Finalmente un documento del namespace:</p>
 
 						<pre>Documento (www.demo.com/documento.stxt):
     T&iacute;tulo: Primer documento simple
     Description:
-        Este es el
-        primer documento
-        simple. Tiene varias l&iacute;neas
+    	Este es el
+    	primer documento
+    	simple. Tiene varias l&iacute;neas
     Tipo Documento: informe
     Secciones:
-        Seccion: Esta es una secci&oacute;n
-        Seccion:
-            Esta es una secci&oacute;n
-            con m&aacute;s de una
-            l&iacute;nea.</pre>
+    	Seccion: Esta es una secci&oacute;n
+    	Seccion:
+    		Esta es una secci&oacute;n
+    		con m&aacute;s de una
+    		l&iacute;nea.</pre>
 						<h2><a id="index_2"></a>Definición de cantidad</h2>
 							<p>Se permite definir la cantidad de nodos de la siguiente forma:</p>
 <ul>

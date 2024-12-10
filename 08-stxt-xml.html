@@ -117,23 +117,23 @@ I suppose they would never have created XML... they would have made something mo
 It’ll be an easy example:</p>
 
 						<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt; 
-    &lt;!-- This is a line comment  --&gt; 
-    &lt;email&gt;
-    &lt;from&gt;John Smith&lt;/from&gt;
-    &lt;to&gt;Mery Adams&lt;/to&gt; 
-    &lt;cc&gt;Keyla Brown&lt;/cc&gt; 
-    &lt;title&gt;Project report&lt;/title&gt; 
-    &lt;body&gt;Hello Mery!! The book is finished!!&lt;/body&gt; 
+	&lt;!-- This is a line comment  --&gt; 
+	&lt;email&gt;
+	&lt;from&gt;John Smith&lt;/from&gt;
+	&lt;to&gt;Mery Adams&lt;/to&gt; 
+	&lt;cc&gt;Keyla Brown&lt;/cc&gt; 
+	&lt;title&gt;Project report&lt;/title&gt; 
+	&lt;body&gt;Hello Mery!! The book is finished!!&lt;/body&gt; 
 &lt;/email&gt;</pre>
 						<p>Let's look at the <span class='STxT'>STxT</span> version:</p>
 
 						<pre># This is a line comment
 Email (www.example.com/email.stxt):
-    From: John Smith
-    To: Mery Adams
-    Cc: Keyla Brown
-    Title: Project report
-    Body: Hello Mery!! The book is finished!!</pre>
+	From: John Smith
+	To: Mery Adams
+	Cc: Keyla Brown
+	Title: Project report
+	Body: Hello Mery!! The book is finished!!</pre>
 						<p>I think a first characteristic is immediately apparent:</p>
 
 						<div class="row">
@@ -150,11 +150,11 @@ Email (www.example.com/email.stxt):
 is finished!!&lt;/body&gt;&lt;/email&gt;</pre>
 						<pre># This is a line comment
 Email(www.example.com/email.stxt):
-    From:John Smith
-    To:Mery Adams
-    Cc:Keyla Brown
-    Title:Project report
-    Body:Hello Mery!! The book is finished!!</pre>
+	From:John Smith
+	To:Mery Adams
+	Cc:Keyla Brown
+	Title:Project report
+	Body:Hello Mery!! The book is finished!!</pre>
 						<p>Minimum XML Length: 225<br>Minimum <span class='STxT'>STxT</span> Length: 172</p>
 <p>If we compare without XML header or <span class='STxT'>STxT</span> namespace:</p>
 <p>Minimum XML Length: 186<br>Minimum <span class='STxT'>STxT</span> Length: 149</p>
@@ -195,15 +195,15 @@ What does an XML document look like with a text node that itself contains XML?</
 &lt;cc&gt;Keyla Brown&lt;cc&gt; 
 &lt;title&gt;Project report&lt;/title&gt; 
 &lt;body&gt;
-    Hello Mery!! The book is finished!!
-    &amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt; 
-    &amp;lt;!-- This is a line comment  --&amp;gt; 
-    &amp;lt;email&amp;gt;
-    &amp;lt;from&amp;gt;John Smith&amp;lt;/from&amp;gt;
-    &amp;lt;to&amp;gt;Mery Adams&amp;lt;/to&amp;gt; 
-    &amp;lt;cc&amp;gt;Keyla Brown&amp;lt;cc&amp;gt; 
-    &amp;lt;title&amp;gt;Project report&amp;lt;/title&amp;gt; 
-    &amp;lt;body&amp;gt;Hello Mery!! The book is finished!!&amp;lt;/body&amp;gt; 
+	Hello Mery!! The book is finished!!
+	&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt; 
+	&amp;lt;!-- This is a line comment  --&amp;gt; 
+	&amp;lt;email&amp;gt;
+	&amp;lt;from&amp;gt;John Smith&amp;lt;/from&amp;gt;
+	&amp;lt;to&amp;gt;Mery Adams&amp;lt;/to&amp;gt; 
+	&amp;lt;cc&amp;gt;Keyla Brown&amp;lt;cc&amp;gt; 
+	&amp;lt;title&amp;gt;Project report&amp;lt;/title&amp;gt; 
+	&amp;lt;body&amp;gt;Hello Mery!! The book is finished!!&amp;lt;/body&amp;gt; 
 &lt;/body&gt; 
 &lt;/email&gt;</pre>
 						<p>And in <span class='STxT'>STxT</span>:</p>
@@ -214,14 +214,14 @@ To: Mery Adams
 Cc: Keyla Brown
 Title: Project report
 Body:
-    Hello Mery!! The book is finished!!
-    &lt;email&gt;
-    &lt;from&gt;John Smith&lt;/from&gt;
-    &lt;to&gt;Mery Adams&lt;/to&gt; 
-    &lt;cc&gt;Keyla Brown&lt;cc&gt; 
-    &lt;title&gt;Project report&lt;/title&gt; 
-    &lt;body&gt;Hello Mery!! The book is finished!!&lt;/body&gt; 
-    &lt;/email&gt;</pre>
+	Hello Mery!! The book is finished!!
+	&lt;email&gt;
+	&lt;from&gt;John Smith&lt;/from&gt;
+	&lt;to&gt;Mery Adams&lt;/to&gt; 
+	&lt;cc&gt;Keyla Brown&lt;cc&gt; 
+	&lt;title&gt;Project report&lt;/title&gt; 
+	&lt;body&gt;Hello Mery!! The book is finished!!&lt;/body&gt; 
+	&lt;/email&gt;</pre>
 						<p>I think no further comment is needed. It’s obvious, but:</p>
 
 						<div class="row">
@@ -232,7 +232,7 @@ Body:
 							<p>Let’s take an example:</p>
 
 						<pre>&lt;example id=&quot;1&quot; show=&quot;false&quot;&gt;
-    Hello World
+	Hello World
 &lt;/example&gt;</pre>
 						<p>Attributes in XML have always been a source of controversy.
 What is an attribute and what should be a node? It’s always hard to decide.
@@ -253,18 +253,18 @@ Furthermore, this is <span class='STxT'>STxT</span>. Everything has meaning, and
 <p>The previous example in <span class='STxT'>STxT</span> would be:</p>
 
 						<pre>example(...):
-    id:1
-    show:false
-    text:Hello World</pre>
+	id:1
+	show:false
+	text:Hello World</pre>
 						<p>In general, we can always do something in the form:</p>
 
 						<pre>node_name:
-    metadata:
-        m1:xxx
-        m2:xxx
-        m3:xxx
-    node2:
-    node3:</pre>
+	metadata:
+		m1:xxx
+		m2:xxx
+		m3:xxx
+	node2:
+	node3:</pre>
 						<h2><a id="index_6"></a>DTD, XSD</h2>
 							<h3><a id="index_7"></a>XSD, DTD, and <span class='STxT'>STxT</span></h3>
 							<p>Let’s talk about XML’s DTDs and XSDs. They are documents that tell us how a valid XML should be.
