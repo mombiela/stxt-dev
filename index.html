@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STXT - Semantic TexT, The Ultimate Language</title>
+    <title>STXT - One Language, Infinite Possibilities</title>
 	<meta name="description" content="${meta.getChild("description").text}">
 	<meta name="author" content="${meta.getChild("author").value}">
 
@@ -51,10 +51,10 @@
     	<ul>
 			<li class="link_src"><a href="index.stxt" target="index" title="Source <span class='STxT'>STxT</span>">&#x25BC;&#x25BC;&#x25BC;</a></li>
 			<li><a href="/" title="Hello!">Hello!</a></li>
-			<li><a href="00-prologo" title="The Book">The Book</a></li>
+			<!--<li><a href="00-prologo" title="The Book">The Book</a></li>-->
 			<li><a href="02-stxt-tutorial" title="Tutorial">Tutorial</a></li>
-			<li><a href="08-stxt-vs" title="<span class='STxT'>STxT</span> vs"><span class='STxT'>STxT</span> vs</a></li>
-			<li><a href="global-campus" title="Global Campus">Global Campus</a></li>
+			<!--<li><a href="08-stxt-vs" title="<span class='STxT'>STxT</span> vs"><span class='STxT'>STxT</span> vs</a></li>-->
+			<!--<li><a href="global-campus" title="Global Campus">Global Campus</a></li>-->
 			<li><a href="stxt" title="Semantic TexT">Semantic TexT</a></li>
     	</ul>
     </div>
@@ -64,68 +64,16 @@
 	<!-- ******* -->
 	
     <div id="main_content" class="clearfix">
-      <article>
-      				
-			
-			
-						<h1><a id="index_0"></a><span class='STxT'>STxT</span>, The Language</h1>
-							<div class="row">
-		<div class="alert"><p><strong><strong>Our Goal:</strong></strong><br><br>To create the most powerful, simplest, and most beautiful language <br>that has ever existed :-)</p>
-</div>
-	</div>
-						<h2><a id="index_1"></a>An Example!</h2>
-							<p>A text in XML:</p>
-
-						<pre>&lt;email&gt;
-	&lt;from&gt;John Smith&lt;/from&gt;
-	&lt;to&gt;Mery Adams&lt;/to&gt; 
-	&lt;cc&gt;Keyla Brown&lt;cc&gt; 
-	&lt;title&gt;Project report&lt;/title&gt; 
-	&lt;body&gt;Hello Mery!! The book is finished!!&lt;/body&gt; 
-&lt;/email&gt;</pre>
-						<p>An equivalent in <span class='STxT'>STxT</span>:</p>
-
-						<pre>Email (www.example.com/email.stxt):
-	From: John Smith
-	To: Mery Adams
-	Cc: Keyla Brown
-	Title: Project report
-	Body: Hello Mery!! The book is finished!!</pre>
-						<h2><a id="index_2"></a>So, what do you think?</h2>
-							<div class="row">
-		<div class="assert"><p>Apart from getting rid of those horrible <code>'&lt;','&gt;'</code> characters, what's new?</p>
-</div>
-	</div>
-						<p>Well, the list is long, but as a starter, it's enough:</p>
-<ul>
-<li>Semantic language... but simple! :-)</li>
-<li>No escape characters! None needed! :-O</li>
-<li>Always UTF-8 encoding</li>
-<li>Easy for humans to learn (<em>and for non-technical people too!</em>)</li>
-<li>Easy for machines to read</li>
-</ul>
-<p>Other features that techies will love ;-)</p>
-<ul>
-<li>Super fast parsing</li>
-<li>Grammar integrated into the language</li>
-<li>Simple namespaces, <strong>very simple</strong> (and optional)</li>
-<li>Easily integrates texts from other programming languages</li>
-</ul>
-<p><strong>You're going to love it :-P</strong></p>
-
-			
-			  </article>
-	  	
 	  <aside id="advertisement">
-		    	    	    	    	    	    		<div class="d-none d-md-block" style="margin-bottom:3rem;">
-																						<h2><a id="index_3"></a>Part I: A New Language</h2>
+    	    		<div class="d-none d-md-block" style="margin-bottom:3rem;">
+																						<h2><a id="index_${numPart}"></a>Part I: A New Language</h2>
 									<ul>
 <li><a href="01-stxt-language">Chapter 1: What is <span class='STxT'>STxT</span>?</a></li>
 <li><a href="02-stxt-tutorial">Chapter 2: <span class='STxT'>STxT</span> Tutorial</a></li>
 <li><a href="03-ai-powered">Chapter 3: AI-Powered</a></li>
 </ul>
 
-								<h2><a id="index_4"></a>Part II: Documents</h2>
+								<h2><a id="index_${numPart}"></a>Part II: Documents</h2>
 									<ul>
 <li><a href="04-raw-docs">Chapter 4: Documents Without Namespace</a></li>
 <li><a href="05-ns-docs">Chapter 5: Documents With Namespace</a></li>
@@ -133,7 +81,7 @@
 <li><a href="07-parser">Chapter 7: Document Parsing</a></li>
 </ul>
 
-								<h2><a id="index_5"></a>Part III: Reflections</h2>
+								<h2><a id="index_${numPart}"></a>Part III: Reflections</h2>
 									<ul>
 <li><a href="08-stxt-vs">Chapter 8: <span class='STxT'>STxT</span> and Other Technologies</a></li>
 <li><a href="09-semantic-web">Chapter 9: Semantic Web</a></li>
@@ -141,7 +89,50 @@
 </ul>
 
 						</div>
-    	    		  </aside>
+    		  </aside>
+	  
+      <article>
+			
+			
+			
+						<h1><a id="index_0"></a>Tutorial in 1 minute</h1>
+							<div class="row">
+		<div class="alert"><p><strong><span class='STxT'>STxT</span></strong>: a language for building structured documents, with namespaces and validation.</p>
+</div>
+	</div>
+						<h2><a id="index_1"></a>Documents with namespace</h2>
+							<p>An example document with an <code>Email</code> element from the <code>com.example.email</code> namespace</p>
+
+						<pre>Email <strong>(com.example.email)</strong>:
+	From: John Smith
+	To: Mery Adams
+	Cc: Keyla Brown
+	Title: Project report
+	Body Content: 
+		Hello Mery!! 
+		The book is finished!!</pre>
+						<p>And the definition of the namespace</p>
+
+						<pre>Namespace: <strong>com.example.email</strong>
+	Email:
+		From: (1)
+		To: (1)
+		Cc: (?)
+		Bcc: (?)
+		Title: (1)
+		Body Content: (1) TEXT</pre>
+						<h2><a id="index_2"></a>Documents without namespace</h2>
+							<pre>Email:
+	From: John Smith
+	To: Mery Adams
+	Cc: Keyla Brown
+	Title: Project report
+	Body Content:
+		:Hello Mery!
+		:The book is finished!</pre>
+			
+			  </article>
+	  	
 	</div>
 	
 	<footer><p>&copy; 2025 - This work is licensed under a <a rel="license" style="text-decoration:underline" href="https://raw.githubusercontent.com/mombiela/semantic-web-builder/master/LICENSE">MIT License</a>.</p></footer>
