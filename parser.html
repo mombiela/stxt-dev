@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
+	<head>    <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parsing <span class='STxT'>STxT</span> (*)</title>
@@ -16,114 +15,100 @@
 		
 	<link rel="alternate" hreflang="x-default" href="https://stxt.dev/parser" />
 </head>
-
-<body>
-
-	<!-- *********** -->
-	<!-- main_header -->
-	<!-- *********** -->
 	
-    <header id="main_header">
-	    <div class="title">
-			<a href="/">
-			                  			<span class='STxT'>STxT</span>: Semantic TexT
-			    	    </a>
-		</div>
-		<div class="subtitle"><a href="index">One Language, Infinite Possibilities</a></div>
-		<ul>
-			<li><a href="about" title="About us" rel="nofollow">About us</a></li>
-			<!--
-			<li><a href="donate" title="Donations" rel="nofollow">Donations</a></li>
-			-->
-			<li><a href="contribute" title="Cooperate" rel="nofollow">Cooperate</a></li>
-			<li><a href="licence" title="License" rel="nofollow">License</a></li>
-			<li><b> | </b></li>
-										<li><a href="./es/parser" title="Español"><i>Español</i></a></li>
-				<li><b>English</b></li>
-			    	</ul>
-    </header>
-
-	<!-- ******* -->
-	<!-- top bar -->
-	<!-- ******* -->
+	<body>
+		<header id="main_header">
+    <div class="title">
+		<a href="/">
+		                  			<span class='STxT'>STxT</span>: Semantic TexT
+			    </a>
+	</div>
+	<div class="subtitle"><a href="index">One Language, Infinite Possibilities</a></div>
+	<ul>
+		<li><a href="about" title="About us" rel="nofollow">About us</a></li>
+		<!--
+		<li><a href="donate" title="Donations" rel="nofollow">Donations</a></li>
+		-->
+		<li><a href="contribute" title="Cooperate" rel="nofollow">Cooperate</a></li>
+		<li><a href="licence" title="License" rel="nofollow">License</a></li>
+		<li><b> | </b></li>
+							<li><a href="./es/parser" title="Español"><i>Español</i></a></li>
+			<li><b>English</b></li>
+			</ul>
+</header>
+		<div class="top-bar">
+	<ul>
+		<li class="link_src"><a href="parser.stxt" target="parser" title="Source <span class='STxT'>STxT</span>">&#x25BC;&#x25BC;&#x25BC;</a></li>
+		<li><a href="/" title="Hello!">Hello!</a></li>
+		<li><a href="stxt-tutorial" title="Tutorial">Tutorial</a></li>
+		<li><a href="stxt" title="Semantic TexT">Semantic TexT</a></li>
+	</ul>
+</div>
 	
-    <div class="top-bar">
-    	<ul>
-			<li class="link_src"><a href="parser.stxt" target="parser" title="Source <span class='STxT'>STxT</span>">&#x25BC;&#x25BC;&#x25BC;</a></li>
-			<li><a href="/" title="Hello!">Hello!</a></li>
-			<li><a href="stxt-tutorial" title="Tutorial">Tutorial</a></li>
-			<li><a href="stxt" title="Semantic TexT">Semantic TexT</a></li>
-    	</ul>
-    </div>
-	
-	<!-- ******* -->
-	<!-- Content -->
-	<!-- ******* -->
-	
-    <div id="main_content" class="clearfix">
-	  <aside id="advertisement">
-    	    		<div class="d-none d-md-block" style="margin-bottom:3rem;">
-															<h2><a id="index_${numPart}"></a>Introduction to the language</h2>
-									<ul>
+		<div id="main_content" class="clearfix">
+  <aside id="index_content">
+			<div class="d-none d-md-block" style="margin-bottom:3rem;">
+											<h2><a id="index_${numPart}"></a>Introduction to the language</h2>
+							<ul>
 <li><a href="stxt-language">What is <span class='STxT'>STxT</span>?</a></li>
 <li><a href="stxt-tutorial"><span class='STxT'>STxT</span> Tutorial</a></li>
 <li><a href="ai-powered">Powered by AI</a></li>
 </ul>
 
-								<h2><a id="index_${numPart}"></a>Documents</h2>
-									<ul>
+						<h2><a id="index_${numPart}"></a>Documents</h2>
+							<ul>
 <li><a href="raw-docs">Documents without namespace</a></li>
 <li><a href="ns-docs">Documents with namespace</a></li>
 <li><a href="examples">Examples</a></li>
 <li><a href="parser">Document parsing</a></li>
 </ul>
 
-						</div>
-    		  </aside>
-	  
-      <article>
-			<div class="column row book_nav clearfix">
+				</div>
+	  </aside>
+  
+  <article>
+		<div class="column row book_nav clearfix">
 		
 		           	<a style="float:left;"	href="examples" title="Previous">&#x25C4; Previous</a>
 					</div>
+
 	
-			
-			
-																<h1><a id="index_0"></a>Parsing <span class='STxT'>STxT</span> (*)</h1>
-							<p>Parsing an <span class='STxT'>STxT</span> file is much easier than parsing files from other technologies.
+	
+										<h1><a id="index_0"></a>Parsing <span class='STxT'>STxT</span> (*)</h1>
+					<p>Parsing an <span class='STxT'>STxT</span> file is much easier than parsing files from other technologies.
 It may seem paradoxical, since it is actually a very powerful language, but at the same time, it is
 based on very simple principles.</p>
 <p>I will explain my way of parsing a file. It may not be the best or most optimal method,
 but it is one way to do it. In fact, if you want to see the implementation I have made,
 it is available online:</p>
 
-						<div class="row">
+				<div class="row">
 		<div class="assert"><p><a href="https://github.com/mombiela/stxt-parser">https://github.com/mombiela/stxt-parser</a></p>
 </div>
 	</div>
-						<p>This implementation has been done in Java, as it is the language I am most familiar with.</p>
+				<p>This implementation has been done in Java, as it is the language I am most familiar with.</p>
 <p>I hope that <span class='STxT'>STxT</span> is successful, and that other implementations appear very soon.</p>
 <p>I will not go into all the details, but I would like to explain
 some points that require more attention.</p>
 
-						<div class="row">
+				<div class="row">
 		<div class="assert"><p>If you do not intend to implement a parser, do not continue reading.
 The next chapter is much more interesting ;-)</p>
 </div>
 	</div>
-						<h2><a id="index_1"></a>Generic Process</h2>
-							<h3><a id="index_2"></a>Line-by-line Parsing</h3>
-							<p>The parsing process can be done line by line, so we can say that, in general, we have:</p>
+				<h2><a id="index_1"></a>Generic Process</h2>
+					<h3><a id="index_2"></a>Line-by-line Parsing</h3>
+					<p>The parsing process can be done line by line, so we can say that, in general, we have:</p>
 
-						<pre>while not end of file
+				<pre>while not end of file
 	read line
 	process line
 end while</pre>
-						<p>During the process, it is advisable to have a list of the last nodes we have encountered according to the level,
+				<p>During the process, it is advisable to have a list of the last nodes we have encountered according to the level,
 as this is crucial for correct processing.</p>
 
-						<h3><a id="index_3"></a>Line Processing</h3>
-							<p>The first step in line processing is the <em>normalization</em> of the line.
+				<h3><a id="index_3"></a>Line Processing</h3>
+					<p>The first step in line processing is the <em>normalization</em> of the line.
 A line is normalized when it is in compact (or semi-compact) form, so we need to check if it is,
 and if not, transform it. During normalization, comment lines are also removed.</p>
 <p>Keep in mind that if the previous node was a text node,
@@ -142,8 +127,8 @@ the level of the new line and distinguish between a few cases:</p>
 and the decisions to be made are relatively simple. This allows us to have a very efficient parser,
 which can also act as a grammar and node validator.</p>
 
-						<h3><a id="index_4"></a>Validations</h3>
-							<p>Validations are performed at various points in the parsing process:</p>
+				<h3><a id="index_4"></a>Validations</h3>
+					<p>Validations are performed at various points in the parsing process:</p>
 <ul>
 <li>When creating a new node: When creating a new node, it is validated that its namespace can be deduced.
 Otherwise, it means that it could not be created in that position and would be incorrect.</li>
@@ -157,8 +142,8 @@ One of them is when another node with an equal or lower level appears.
 The other is when the entire file has been processed and there are no more nodes to validate.
 At these points, the node is considered closed, and validations can begin.</p>
 
-						<h2><a id="index_5"></a>Language Nodes</h2>
-							<p>In the language description, we mentioned that data types have no limitations
+				<h2><a id="index_5"></a>Language Nodes</h2>
+					<p>In the language description, we mentioned that data types have no limitations
 and are not tied to a specific language, so validations should only be checked
 using regular expressions or methods that ensure this.</p>
 <p>We have the following node types:</p>
@@ -177,28 +162,28 @@ using regular expressions or methods that ensure this.</p>
 </ul>
 <p>For example, the regular expressions we could use to validate nodes are:</p>
 
-						<pre>BINARY       = ^(0|1|\s)+$
+				<pre>BINARY       = ^(0|1|\s)+$
 BOOLEAN      = ^0|1$
 HEXADECIMAL  = ^([a-f0-9]|\s)+$
 INTEGER      = ^(\-|\+)?\d+$
 NATURAL      = ^\d+$
 NUMBER       = ^(\-|\+)?\d+\.\d+(e(\-|\+)?\d+)?$
 RATIONAL     = ^(\-|\+)?\d+\/\d+$</pre>
-						<h2><a id="index_6"></a>Grammars</h2>
-							<h3><a id="index_7"></a>Storage</h3>
-							<p>Grammars are obtained from the Internet, but it is neither practical nor efficient to have to fetch
+				<h2><a id="index_6"></a>Grammars</h2>
+					<h3><a id="index_7"></a>Storage</h3>
+					<p>Grammars are obtained from the Internet, but it is neither practical nor efficient to have to fetch
 definitions remotely every time. The most efficient strategy is to have a kind of grammar repository,
 on disk, and always fetch them from there. If not found, they would be fetched from the Internet,
 and that repository would be updated. It is also possible to set verification times or other strategies.
 The idea is that grammars do not change over time, or at least they should be backward compatible.</p>
 
-						<h3><a id="index_8"></a>Initial Grammar</h3>
-							<p>Keep in mind that it is not possible to create a parser without having the grammar beforehand.
+				<h3><a id="index_8"></a>Initial Grammar</h3>
+					<p>Keep in mind that it is not possible to create a parser without having the grammar beforehand.
 To parse a grammar, you need the definition of the base grammar already parsed.
 For this reason, there will be an initial grammar definition in the code itself.</p>
 
-						<h2><a id="index_9"></a>Details to Consider</h2>
-							<p>There are some details to consider in parsing:</p>
+				<h2><a id="index_9"></a>Details to Consider</h2>
+					<p>There are some details to consider in parsing:</p>
 <ul>
 <li>Case-insensitive: All nodes are considered CASE-INSENSITIVE,
 so the appropriate transformations must be made during the parsing process.</li>
@@ -210,15 +195,13 @@ This is done to allow quick file edits from any environment,
 although the most appropriate standard is always UNIX (line break only).</li>
 </ul>
 
-			
-			<div class="column row book_nav clearfix">
+	
+		<div class="column row book_nav clearfix">
 		
 		           	<a style="float:left;"	href="examples" title="Previous">&#x25C4; Previous</a>
 					</div>
-	  </article>
-	  	
-	</div>
-	
-	<footer><p>&copy; 2025 - This work is licensed under a <a rel="license" style="text-decoration:underline" href="https://raw.githubusercontent.com/mombiela/semantic-web-builder/master/LICENSE">MIT License</a>.</p></footer>
-</body>
+  </article>
+</div>
+		<footer><p>&copy; 2025 - This work is licensed under a <a rel="license" style="text-decoration:underline" href="https://raw.githubusercontent.com/mombiela/semantic-web-builder/master/LICENSE">MIT License</a>.</p></footer>
+	</body>
 </html>
