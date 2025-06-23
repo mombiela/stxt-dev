@@ -3,17 +3,17 @@
 	<head>    <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STXT - Un Lenguaje, Infinitas Posibilidades</title>
-	<meta name="description" content="${meta.getChild("description").text}">
-	<meta name="author" content="${meta.getChild("author").value}">
+    <title>Compactación</title>
+	<meta name="description" content="Se muestra como se compactan documentos">
+	<meta name="author" content="Joan Costa Mombiela">
 
 	<style>@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');</style>
     <link rel="stylesheet" href="/css/site.css?v=20241210">
 		
 			
-			<link rel="alternate" hreflang="en" href="https://stxt.dev/index" />
+			<link rel="alternate" hreflang="en" href="https://stxt.dev/compact" />
 				
-	<link rel="alternate" hreflang="x-default" href="https://stxt.dev/index" />
+	<link rel="alternate" hreflang="x-default" href="https://stxt.dev/compact" />
 </head>
 	
 	<body>
@@ -29,7 +29,7 @@
 		<li><a href="licence" title="Licencia" rel="nofollow">Licencia</a></li>
 		<li><b> | </b></li>
 					<li><b>Español</b></li>
-			<li><a href="../index" title="Español"><i>English</i></a></li>
+			<li><a href="../compact" title="Español"><i>English</i></a></li>
 					</ul>
 </header>
 		<div class="top-bar">
@@ -37,7 +37,7 @@
 		<li><a href="/es" title="Introducción">Introducción</a></li>
 		<li><a href="tutorial" title="Tutorial">Tutorial</a></li>
 		<li><a href="parsers" title="Parsers">Parsers</a></li>
-		<li class="link_src"><a href="index.stxt" target="index" title="Source <span class='STxT'>STxT</span>">Código fuente</a></li>
+		<li class="link_src"><a href="compact.stxt" target="compact" title="Source <span class='STxT'>STxT</span>">Código fuente</a></li>
 	</ul>
 </div>
 	
@@ -45,64 +45,31 @@
   <article>
 		<div class="column row book_nav clearfix">
 		
-				           	<a style="float:right;" href="tutorial" title="Siguiente">Siguiente &#x25BA;</a>
+		           	<a style="float:left;"	href="ns-docs" title="Anterior">&#x25C4; Anterior</a>
+				           	<a style="float:right;" href="examples" title="Siguiente">Siguiente &#x25BA;</a>
 			</div>
 
 	
-							<h1><a id="index_0"></a><span class='STxT'>STxT</span> en 1 Minuto</h1>
-					<div class="row">
-		<div class="alert"><p><strong><span class='STxT'>STxT</span></strong>: un lenguaje para construir documentos de texto estructurados, con namespaces y validación.</p>
-</div>
-	</div>
-				<h2><a id="index_1"></a>Documentos com namespace</h2>
-					<p>Ejemplo de documento con un elemento <code>Email</code> del namespace <code>com.example.docs</code></p>
-
-				<pre><strong>Email (com.example.docs)</strong>:
-	From: John Smith
-	To: Mery Adams
-	Cc: Keyla Brown
-	Title: Project report
-	Body Content: 
-		Hello Mery!! 
-		The book is finished!!</pre>
-				<p>Y la definición del namespace</p>
-
-				<pre><strong>Namespace: com.example.docs</strong>
-	Email:
-		From: (1)
-		To: (1)
-		Cc: (?)
-		Bcc: (?)
-		Title: (1)
-		Body Content: (1) TEXT</pre>
-				<h2><a id="index_2"></a>Documentos sin namespace</h2>
-					<p>Los documentos sin namespace deben marcar los nodos multiline con <code>:</code> delante del nombre:</p>
-
-				<pre>Email:
-	From: John Smith
-	To: Mery Adams
-	Cc: Keyla Brown
-	Title: Project report
-	<strong>:Body Content:</strong>
-		Hello Mery! 
-		The book is finished!</pre>
+										<h1><a id="index_0"></a>Compactación</h1>
+					
 	
 		<div class="column row book_nav clearfix">
 		
-				           	<a style="float:right;" href="tutorial" title="Siguiente">Siguiente &#x25BA;</a>
+		           	<a style="float:left;"	href="ns-docs" title="Anterior">&#x25C4; Anterior</a>
+				           	<a style="float:right;" href="examples" title="Siguiente">Siguiente &#x25BA;</a>
 			</div>
   </article>
   
   <aside id="index_content">
 			<div class="d-none d-md-block" style="margin-bottom:3rem;">
-											<h2><a id="index_3"></a>Introducción</h2>
+											<h2><a id="index_1"></a>Introducción</h2>
 							<div class="link">
-		<a href="index"  class="selected"  ><span class='STxT'>STxT</span> en 1 Minuto</a>
+		<a href="index" ><span class='STxT'>STxT</span> en 1 Minuto</a>
 	</div>
 						<div class="link">
 		<a href="tutorial" ><span class='STxT'>STxT</span> Tutorial</a>
 	</div>
-						<h2><a id="index_4"></a>El lenguaje</h2>
+						<h2><a id="index_2"></a>El lenguaje</h2>
 							<div class="link">
 		<a href="raw-docs" >Documentos sin namespace</a>
 	</div>
@@ -110,12 +77,12 @@
 		<a href="ns-docs" >Documentos con namespace</a>
 	</div>
 						<div class="link">
-		<a href="compact" >Compactación</a>
+		<a href="compact"  class="selected"  >Compactación</a>
 	</div>
 						<div class="link">
 		<a href="examples" >Ejemplos</a>
 	</div>
-						<h2><a id="index_5"></a>Recursos técnicos</h2>
+						<h2><a id="index_3"></a>Recursos técnicos</h2>
 							<div class="link">
 		<a href="doc-parsing" >Parseo de documentos</a>
 	</div>

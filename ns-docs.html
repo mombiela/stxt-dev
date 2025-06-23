@@ -3,7 +3,7 @@
 	<head>    <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documents With Namespace</title>
+    <title>Documents with namespace</title>
 	<meta name="description" content="${meta.getChild("description").text}">
 	<meta name="author" content="${meta.getChild("author").value}">
 
@@ -34,8 +34,9 @@
 </header>
 		<div class="top-bar">
 	<ul>
-		<li><a href="/" title="Hello!">Hello!</a></li>
-		<li><a href="stxt-tutorial" title="Tutorial">Tutorial</a></li>
+		<li><a href="/" title="Introduction">Introduction</a></li>
+		<li><a href="tutorial" title="Tutorial">Tutorial</a></li>
+		<li><a href="parsers" title="Parsers">Parsers</a></li>
 		<li class="link_src"><a href="ns-docs.stxt" target="ns-docs" title="Source <span class='STxT'>STxT</span>">Source Code</a></li>
 	</ul>
 </div>
@@ -45,42 +46,44 @@
 		<div class="column row book_nav clearfix">
 		
 		           	<a style="float:left;"	href="raw-docs" title="Previous">&#x25C4; Previous</a>
-				           	<a style="float:right;" href="examples" title="Next">Next &#x25BA;</a>
+				           	<a style="float:right;" href="compact" title="Next">Next &#x25BA;</a>
 			</div>
 
 	
-							<h1><a id="index_0"></a>Documents With Namespace</h1>
+							<h1><a id="index_0"></a>Documents with namespace</h1>
 					<div class="row">
-		<div class="assert"><p>Everything explained for documents without a namespace applies, except for multiline nodes.</p>
+		<div class="assert"><p>Everything explained for documents without namespace is applicable, except for multiline nodes.</p>
 </div>
 	</div>
-				<p>As a summary of the previous:</p>
+				<p>As a previous summary:</p>
 <ul>
-<li>UTF-8 Encoding Always</li>
+<li>Always UTF-8 Encoding</li>
 <li>Identifiers are CASE-INSENSITIVE</li>
 <li>There are no escape characters</li>
-<li>In <span class='STxT'>STxT</span>, all lines that start with the character # are comments</li>
-<li>4 spaces are equivalent to one tab</li>
+<li>In <span class='STxT'>STxT</span>, all lines starting with the character # are comments</li>
+<li>4 spaces are equivalent to a tab</li>
 </ul>
 
 				<div class="row">
-		<div class="assert"><p>The use of <code>:</code> for multiline nodes is not allowed.<br>This is implicit due to the node type.</p>
+		<div class="assert"><p>The use of <code>:</code> for multiline nodes is not allowed.<br>This is implied by the node type.</p>
 </div>
 	</div>
-				<p>If the <code>:</code> character is inserted, it will simply become part of the text, not considered special. The other text types do not allow multiple lines, so it will have no effect.</p>
+				<p>If the character <code>:</code> is inserted, what will happen is that it will become
+part of the text, it will not be considered special. The other types
+of text do not allow multiple lines, so it will have no effect.</p>
 
-				<h2><a id="index_1"></a>Namespace Definition</h2>
-					<p>A namespace is a document without a namespace with the first node called <code>Namespace</code>,
-which is a structure with all the possible node types, as an example.</p>
+				<h2><a id="index_1"></a>Namespace definition</h2>
+					<p>A namespace is a document without namespace with the first node called <code>Namespace</code>,
+which is a structure with all possible node types, as an example.</p>
 
 				<div class="row">
-		<div class="assert"><p>A node is defined only once, and it cannot be redefined afterward.<br>It is allowed to appear earlier as long as the structure is not defined.</p>
+		<div class="assert"><p>A node is defined only once, after that it cannot be redefined.<br>It is allowed to appear before as long as the structure is not defined.</p>
 </div>
 	</div>
 				<p>Let's look at an example:</p>
 
-				<pre>Namespace: www.demo.com/document.stxt
-	Document:
+				<pre>Namespace: www.demo.com/documento.stxt
+	Documento:
     	Title: (1)
     	<strong>Sections: (?)</strong>
     	Description: (1) TEXT
@@ -91,10 +94,10 @@ which is a structure with all the possible node types, as an example.</p>
 		
 	<strong>Sections:</strong>
     	<strong>Section: (+) TEXT</strong></pre>
-				<p>A simpler way to define it would have been:</p>
+				<p>Another simpler way to define it would have been:</p>
 
-				<pre>Namespace: www.demo.com/document.stxt
-	Document:
+				<pre>Namespace: www.demo.com/documento.stxt
+	Documento:
     	Title: (1)
     	<strong>Sections: (?)</strong>
     		<strong>Section: (+) TEXT</strong>
@@ -105,12 +108,12 @@ which is a structure with all the possible node types, as an example.</p>
     		:essay</pre>
 				<p>Finally, a document from the namespace:</p>
 
-				<pre>Document (www.demo.com/document.stxt):
+				<pre>Documento (www.demo.com/documento.stxt):
     Title: First simple document
     Description:
     	This is the
-    	first simple document.
-    	It has multiple lines
+    	first simple
+    	document. It has several lines
     Document Type: report
     Sections:
     	Section: This is a section
@@ -118,7 +121,7 @@ which is a structure with all the possible node types, as an example.</p>
     		This is a section
     		with more than one
     		line.</pre>
-				<h2><a id="index_2"></a>Quantity Definition</h2>
+				<h2><a id="index_2"></a>Quantity definition</h2>
 					<p>It is allowed to define the quantity of nodes as follows:</p>
 <ul>
 <li><code>?</code>: May or may not appear (maximum 1)</li>
@@ -129,7 +132,7 @@ which is a structure with all the possible node types, as an example.</p>
 <li><code>num</code>: exactly <em>num</em> nodes</li>
 </ul>
 
-				<h2><a id="index_3"></a>Node Types</h2>
+				<h2><a id="index_3"></a>Node types</h2>
 					<p>The following node types are allowed:</p>
 <ul>
 <li><code>STRING</code> (Default value)</li>
@@ -137,7 +140,7 @@ which is a structure with all the possible node types, as an example.</p>
 <li><code>NUMBER</code>: /^(-|+)?\d+(.\d+(e(-|+)?\d+)?/</li>
 <li><code>BOOLEAN</code>: true | false</li>
 <li><code>REGEX</code>: valid regex</li>
-<li><code>ENUM</code>: Valid values are shown in the following multilines</li>
+<li><code>ENUM</code>: The following multilines show the valid values</li>
 <li><code>DATE</code>: YYYY-MM-DD</li>
 <li><code>TIMESTAMP</code>: ISO_8601</li>
 <li><code>EMAIL</code>: valid email</li>
@@ -153,7 +156,7 @@ which is a structure with all the possible node types, as an example.</p>
 		<div class="column row book_nav clearfix">
 		
 		           	<a style="float:left;"	href="raw-docs" title="Previous">&#x25C4; Previous</a>
-				           	<a style="float:right;" href="examples" title="Next">Next &#x25BA;</a>
+				           	<a style="float:right;" href="compact" title="Next">Next &#x25BA;</a>
 			</div>
   </article>
   
@@ -164,7 +167,7 @@ which is a structure with all the possible node types, as an example.</p>
 		<a href="index" ><span class='STxT'>STxT</span> in 1 Minute</a>
 	</div>
 						<div class="link">
-		<a href="stxt-tutorial" ><span class='STxT'>STxT</span> Tutorial</a>
+		<a href="tutorial" ><span class='STxT'>STxT</span> Tutorial</a>
 	</div>
 						<h2><a id="index_5"></a>The Language</h2>
 							<div class="link">
@@ -174,11 +177,20 @@ which is a structure with all the possible node types, as an example.</p>
 		<a href="ns-docs"  class="selected"  >Documents with namespace</a>
 	</div>
 						<div class="link">
+		<a href="compact" >Compaction</a>
+	</div>
+						<div class="link">
 		<a href="examples" >Examples</a>
 	</div>
-						<h2><a id="index_6"></a>Technical resources</h2>
+						<h2><a id="index_6"></a>Technical Resources</h2>
 							<div class="link">
-		<a href="parser" >Document parsing</a>
+		<a href="doc-parsing" >Document Parsing</a>
+	</div>
+						<div class="link">
+		<a href="ebnf" >EBNF</a>
+	</div>
+						<div class="link">
+		<a href="parsers" >Available Parsers</a>
 	</div>
 				</div>
 	  </aside>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBNF</title>
+	<meta name="description" content="The EBNF description of <span class='STxT'>STxT</span> is shown">
+	<meta name="author" content="Joan Costa Mombiela">
+
+	<style>@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');</style>
+    <link rel="stylesheet" href="/css/site.css?v=20241210">
+		
+			<link rel="alternate" hreflang="es" href="https://stxt.dev/es/ebnf" />
+					
+		
+	<link rel="alternate" hreflang="x-default" href="https://stxt.dev/ebnf" />
+</head>
+	
+	<body>
+		<header id="main_header">
+    <div class="title">
+		<a href="/">
+		                  			<span class='STxT'>STxT</span>: Semantic TexT
+			    </a>
+	</div>
+	<div class="subtitle"><a href="index">One Language, Infinite Possibilities</a></div>
+	<ul>
+		<li><a href="contribute" title="Cooperate" rel="nofollow">Cooperate</a></li>
+		<li><a href="licence" title="License" rel="nofollow">License</a></li>
+		<li><b> | </b></li>
+							<li><a href="./es/ebnf" title="Español"><i>Español</i></a></li>
+			<li><b>English</b></li>
+			</ul>
+</header>
+		<div class="top-bar">
+	<ul>
+		<li><a href="/" title="Introduction">Introduction</a></li>
+		<li><a href="tutorial" title="Tutorial">Tutorial</a></li>
+		<li><a href="parsers" title="Parsers">Parsers</a></li>
+		<li class="link_src"><a href="ebnf.stxt" target="ebnf" title="Source <span class='STxT'>STxT</span>">Source Code</a></li>
+	</ul>
+</div>
+	
+		<div id="main_content" class="clearfix">
+  <article>
+		<div class="column row book_nav clearfix">
+		
+		           	<a style="float:left;"	href="doc-parsing" title="Previous">&#x25C4; Previous</a>
+				           	<a style="float:right;" href="parsers" title="Next">Next &#x25BA;</a>
+			</div>
+
+	
+										<h1><a id="index_0"></a>EBNF</h1>
+					<p>Below we show the EBNF grammar:</p>
+
+				<pre>
+Document         ::= Line*
+
+Line             ::= CommentLine | NodeLine | IndentedTextLine
+
+CommentLine      ::= IndentOpt? &quot;#&quot; TEXT? Newline
+
+NodeLine         ::= IndentPrefix NodeHeader Separator? InlineValue? Newline
+
+IndentedTextLine ::= IndentPrefix TEXT Newline
+
+NodeHeader       ::= SpecialTextNode | NodeName Namespace?
+
+SpecialTextNode  ::= &quot;:&quot; NodeName &quot;:&quot;       (* Indicates freeform text *)
+
+NodeName         ::= Identifier
+
+Namespace        ::= &quot;(&quot; Identifier &quot;)&quot;     (* e.g. (com.example.docs) *)
+
+InlineValue      ::= TEXT                   (* Optional inline value *)
+
+Separator        ::= &quot;:&quot;                    (* Colon separates key and value *)
+
+IndentPrefix     ::= IndentOpt | NumericIndent
+
+IndentOpt        ::= (TAB | SPACES4)*       (* Tabs or 4 spaces *)
+
+NumericIndent    ::= Digit+ &quot;:&quot;             (* e.g., 2: for level 2 *)
+
+Newline          ::= &quot;\n&quot; | &quot;\r\n&quot;
+
+Identifier       ::= IdentifierChar ( IdentifierChar )*
+
+IdentifierChar   ::= Letter | Digit | &quot;_&quot; | &quot;-&quot; | &quot; &quot;
+
+Letter           ::= ? any Unicode letter ? (* A&ndash;Z, a&ndash;z, &aacute;, &eacute;, &ntilde;, etc. *)
+
+Digit            ::= &quot;0&quot; | &quot;1&quot; | &quot;2&quot; | &quot;3&quot; | &quot;4&quot; | &quot;5&quot; | &quot;6&quot; | &quot;7&quot; | &quot;8&quot; | &quot;9&quot;
+
+TEXT             ::= ? any printable character except newline ?</pre>
+	
+		<div class="column row book_nav clearfix">
+		
+		           	<a style="float:left;"	href="doc-parsing" title="Previous">&#x25C4; Previous</a>
+				           	<a style="float:right;" href="parsers" title="Next">Next &#x25BA;</a>
+			</div>
+  </article>
+  
+  <aside id="index_content">
+			<div class="d-none d-md-block" style="margin-bottom:3rem;">
+											<h2><a id="index_1"></a>Introduction</h2>
+							<div class="link">
+		<a href="index" ><span class='STxT'>STxT</span> in 1 Minute</a>
+	</div>
+						<div class="link">
+		<a href="tutorial" ><span class='STxT'>STxT</span> Tutorial</a>
+	</div>
+						<h2><a id="index_2"></a>The Language</h2>
+							<div class="link">
+		<a href="raw-docs" >Documents without namespace</a>
+	</div>
+						<div class="link">
+		<a href="ns-docs" >Documents with namespace</a>
+	</div>
+						<div class="link">
+		<a href="compact" >Compaction</a>
+	</div>
+						<div class="link">
+		<a href="examples" >Examples</a>
+	</div>
+						<h2><a id="index_3"></a>Technical Resources</h2>
+							<div class="link">
+		<a href="doc-parsing" >Document Parsing</a>
+	</div>
+						<div class="link">
+		<a href="ebnf"  class="selected"  >EBNF</a>
+	</div>
+						<div class="link">
+		<a href="parsers" >Available Parsers</a>
+	</div>
+				</div>
+	  </aside>
+</div>
+		<footer><p>&copy; 2025 - This work is licensed under a <a rel="license" style="text-decoration:underline" href="https://raw.githubusercontent.com/mombiela/semantic-web-builder/master/LICENSE">MIT License</a>.</p></footer>
+	</body>
+</html>

@@ -10,10 +10,10 @@
 	<style>@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');</style>
     <link rel="stylesheet" href="/css/site.css?v=20241210">
 		
-			<link rel="alternate" hreflang="es" href="https://stxt.dev/es/stxt-tutorial" />
+			<link rel="alternate" hreflang="es" href="https://stxt.dev/es/tutorial" />
 					
 		
-	<link rel="alternate" hreflang="x-default" href="https://stxt.dev/stxt-tutorial" />
+	<link rel="alternate" hreflang="x-default" href="https://stxt.dev/tutorial" />
 </head>
 	
 	<body>
@@ -28,15 +28,16 @@
 		<li><a href="contribute" title="Cooperate" rel="nofollow">Cooperate</a></li>
 		<li><a href="licence" title="License" rel="nofollow">License</a></li>
 		<li><b> | </b></li>
-							<li><a href="./es/stxt-tutorial" title="Español"><i>Español</i></a></li>
+							<li><a href="./es/tutorial" title="Español"><i>Español</i></a></li>
 			<li><b>English</b></li>
 			</ul>
 </header>
 		<div class="top-bar">
 	<ul>
-		<li><a href="/" title="Hello!">Hello!</a></li>
-		<li><a href="stxt-tutorial" title="Tutorial">Tutorial</a></li>
-		<li class="link_src"><a href="stxt-tutorial.stxt" target="stxt-tutorial" title="Source <span class='STxT'>STxT</span>">Source Code</a></li>
+		<li><a href="/" title="Introduction">Introduction</a></li>
+		<li><a href="tutorial" title="Tutorial">Tutorial</a></li>
+		<li><a href="parsers" title="Parsers">Parsers</a></li>
+		<li class="link_src"><a href="tutorial.stxt" target="tutorial" title="Source <span class='STxT'>STxT</span>">Source Code</a></li>
 	</ul>
 </div>
 	
@@ -58,7 +59,7 @@ You can be reading a document in <span class='STxT'>STxT</span> without actually
 that it is.</p>
 
 				<h2><a id="index_2"></a>Documents without namespace</h2>
-					<p>We show an example of a cooking recipe:</p>
+					<p>Here is an example of a cooking recipe:</p>
 
 				<pre>Recipe: Macaroni Recipe
 	<strong>:Description:</strong>
@@ -71,16 +72,16 @@ that it is.</p>
 		Ingredient: (100g) Tomato
 		Ingredient: (240g) Macaroni
 	Steps:
-		Step: (1) Make sofrito
+		Step: (1) Make the sofrito
 		Step: (2) Boil macaroni
 		Step: (3) Mix macaroni with sofrito and serve</pre>
 				<p>This is a <strong><span class='STxT'>STxT</span> document without namespace</strong>. These types of documents
-are structured, but we don't know what form the nodes take. Anyway, it can already
-be seen that they have structure, with a main node <code>Recipe</code>, which has
+are structured, but we don't know what form the nodes take. In any case, you can
+already see that they have structure, with a main node <code>Recipe</code>, which has
 a <code>Description</code> node, <code>Ingredients</code>, etc. In turn, these nodes have others, and so on
 until forming a hierarchical structure.</p>
-<p>It is worth mentioning the <code>Description</code> node which is a node that allows <strong>multilines</strong>.
-Without a prior structure, they are distinguished because the node name
+<p>It is worth mentioning the <code>Description</code> node, which is a node that allows <strong>multilines</strong>.
+Not having a previous structure, they are distinguished because the node name
 is in the form <code>:node name:</code></p>
 
 				<h2><a id="index_3"></a>Documents with namespace</h2>
@@ -97,7 +98,7 @@ is in the form <code>:node name:</code></p>
 		Ingredient: (100g) Tomato
 		Ingredient: (240g) Macaroni
 	Steps:
-		Step: (1) Make sofrito
+		Step: (1) Make the sofrito
 		Step: (2) Boil macaroni
 		Step: (3) Mix macaroni with sofrito and serve</pre>
 				<p>Now we show the namespace. <strong>The definition of the namespace is found in
@@ -117,12 +118,12 @@ a document without namespace</strong>:</p>
 	    	Step: (+)</pre>
 				<h2><a id="index_4"></a>Comments</h2>
 					<p>It is possible to insert comments in the documents to
-express unfinished parts, thoughts of the author, etc.
+express unfinished parts, author's thoughts, etc.
 Comments will not be used but allow enriching the document.</p>
 
 				<pre>Recipe (com.kocinando.receta): Macaroni Recipe
 <strong># This recipe was given to me by XX and I have made it a lot of times</strong>
-<strong># You will like it a lot!!</strong>
+<strong># You will really like it!!</strong>
 	Description:
 		This is the description of the macaroni recipe.
 		Bla, bla, bla
@@ -133,7 +134,7 @@ Comments will not be used but allow enriching the document.</p>
 		Ingredient: (100g) Tomato
 		Ingredient: (240g) Macaroni
 	Steps:
-		Step: (1) Make sofrito
+		Step: (1) Make the sofrito
 		Step: (2) Boil macaroni
 		Step: (3) Mix macaroni with sofrito and serve</pre>
 				<h2><a id="index_5"></a>Different namespaces in a document</h2>
@@ -148,7 +149,7 @@ Better to see an example:</p>
 instead of putting the structure, it refers to another namespace.</p>
 
 				<div class="row">
-		<div class="assert"><p>It is NOT necessary to say the inner namespace, only the main node.</p>
+		<div class="assert"><p>It is NOT necessary to specify the inner namespace, only the main node.</p>
 </div>
 	</div>
 				<p>Thus, an example of a recipe book would be:</p>
@@ -165,7 +166,7 @@ instead of putting the structure, it refers to another namespace.</p>
 			Ingredient: (100g) Tomato
 			Ingredient: (240g) Macaroni
 		Steps:
-			Step: (1) Make sofrito
+			Step: (1) Make the sofrito
 			Step: (2) Boil macaroni
 			Step: (3) Mix macaroni with sofrito and serve	
 	<strong>Recipe: Pizza Recipe</strong>
@@ -191,7 +192,7 @@ instead of putting the structure, it refers to another namespace.</p>
 		<a href="index" ><span class='STxT'>STxT</span> in 1 Minute</a>
 	</div>
 						<div class="link">
-		<a href="stxt-tutorial"  class="selected"  ><span class='STxT'>STxT</span> Tutorial</a>
+		<a href="tutorial"  class="selected"  ><span class='STxT'>STxT</span> Tutorial</a>
 	</div>
 						<h2><a id="index_7"></a>The Language</h2>
 							<div class="link">
@@ -201,11 +202,20 @@ instead of putting the structure, it refers to another namespace.</p>
 		<a href="ns-docs" >Documents with namespace</a>
 	</div>
 						<div class="link">
+		<a href="compact" >Compaction</a>
+	</div>
+						<div class="link">
 		<a href="examples" >Examples</a>
 	</div>
-						<h2><a id="index_8"></a>Technical resources</h2>
+						<h2><a id="index_8"></a>Technical Resources</h2>
 							<div class="link">
-		<a href="parser" >Document parsing</a>
+		<a href="doc-parsing" >Document Parsing</a>
+	</div>
+						<div class="link">
+		<a href="ebnf" >EBNF</a>
+	</div>
+						<div class="link">
+		<a href="parsers" >Available Parsers</a>
 	</div>
 				</div>
 	  </aside>

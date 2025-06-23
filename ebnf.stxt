@@ -1,0 +1,56 @@
+Document (dev.stxt.namespace):EBNF
+	Navigation:
+		Previous: Previous (doc-parsing)
+		Next: EBNF (parsers)
+
+	Metadata:
+		Description: The EBNF description of STxT is shown
+		Author: Joan Costa Mombiela
+		Last modif: 2025-06-22
+		
+	Header: EBNF
+		
+	Content:Below we show the EBNF grammar:
+	
+	Code:
+	
+		Document         ::= Line*
+
+		Line             ::= CommentLine | NodeLine | IndentedTextLine
+		
+		CommentLine      ::= IndentOpt? "#" TEXT? Newline
+		
+		NodeLine         ::= IndentPrefix NodeHeader Separator? InlineValue? Newline
+		
+		IndentedTextLine ::= IndentPrefix TEXT Newline
+		
+		NodeHeader       ::= SpecialTextNode | NodeName Namespace?
+		
+		SpecialTextNode  ::= ":" NodeName ":"       (* Indicates freeform text *)
+		
+		NodeName         ::= Identifier
+		
+		Namespace        ::= "(" Identifier ")"     (* e.g. (com.example.docs) *)
+		
+		InlineValue      ::= TEXT                   (* Optional inline value *)
+		
+		Separator        ::= ":"                    (* Colon separates key and value *)
+		
+		IndentPrefix     ::= IndentOpt | NumericIndent
+		
+		IndentOpt        ::= (TAB | SPACES4)*       (* Tabs or 4 spaces *)
+		
+		NumericIndent    ::= Digit+ ":"             (* e.g., 2: for level 2 *)
+		
+		Newline          ::= "\n" | "\r\n"
+		
+		Identifier       ::= IdentifierChar ( IdentifierChar )*
+		
+		IdentifierChar   ::= Letter | Digit | "_" | "-" | " "
+		
+		Letter           ::= ? any Unicode letter ? (* A–Z, a–z, á, é, ñ, etc. *)
+		
+		Digit            ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+		
+		TEXT             ::= ? any printable character except newline ?
+		

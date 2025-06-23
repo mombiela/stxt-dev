@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://stxt.dev/es/stxt-tutorial</loc><priority>0.5</priority></url>
-<url><loc>https://stxt.dev/es/parser</loc><priority>0.5</priority></url>
+<url><loc>https://stxt.dev/es/ebnf</loc><priority>0.5</priority></url>
+<url><loc>https://stxt.dev/es/parsers</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/es/_index</loc><priority>0.5</priority></url>
+<url><loc>https://stxt.dev/es/tutorial</loc><priority>0.5</priority></url>
+<url><loc>https://stxt.dev/es/compact</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/es/index</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/es/contribute</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/es/ns-docs</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/es/licence</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/es/examples</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/es/raw-docs</loc><priority>0.5</priority></url>
-<url><loc>https://stxt.dev/stxt-tutorial</loc><priority>0.5</priority></url>
-<url><loc>https://stxt.dev/parser</loc><priority>0.5</priority></url>
+<url><loc>https://stxt.dev/es/doc-parsing</loc><priority>0.5</priority></url>
+<url><loc>https://stxt.dev/ebnf</loc><priority>0.5</priority></url>
+<url><loc>https://stxt.dev/parsers</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/_index</loc><priority>0.5</priority></url>
+<url><loc>https://stxt.dev/tutorial</loc><priority>0.5</priority></url>
+<url><loc>https://stxt.dev/compact</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/index</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/contribute</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/ns-docs</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/licence</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/examples</loc><priority>0.5</priority></url>
 <url><loc>https://stxt.dev/raw-docs</loc><priority>0.5</priority></url>
+<url><loc>https://stxt.dev/doc-parsing</loc><priority>0.5</priority></url>
 </urlset>
