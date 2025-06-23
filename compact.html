@@ -51,7 +51,137 @@
 
 	
 										<h1><a id="index_0"></a>Compaction</h1>
-					
+					<h2><a id="index_1"></a>Analysis of <span class='STxT'>STxT</span> information</h2>
+					<p>A document is just a set of nodes with a certain indentation, so the information is really about <strong>order</strong> and <strong>level</strong>.</p>
+<p>Let's see it in an example:</p>
+
+				<pre>Node_0 (com.example.docs):
+	Node_1:
+		Node_2: Node2 Text
+		Node_3: Node3 Text
+	Node_4:
+		Node_5: Node5 Text
+		Node_6: Node6 Text
+			Continuation text
+			Another line of text
+		Node_7:
+			Node_8:
+				Node_9: Last line</pre>
+				<p>We see that there are 10 Nodes in this document.
+The first node is Node_0, and it contains the others.
+We could say it is the first to appear (order)
+and has level 0 (it is not indented and contains the others).
+The second node is Node_1. It is the second to appear and has level 1.
+In this way we could qualify all the lines, and extract the information.
+It is not difficult to make a table with this information:</p>
+
+				<table>
+<thead>
+<tr>
+<th>Order</th>
+<th>Node</th>
+<th>Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Node_0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Node_1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Node_2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Node_3</td>
+<td>2</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Node_4</td>
+<td>1</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Node_5</td>
+<td>2</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Node_6</td>
+<td>2</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Text</td>
+<td>3</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Text</td>
+<td>3</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Node_7</td>
+<td>2</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Node_8</td>
+<td>3</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Node_9</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+
+				<p>Now it's just a matter of including this information. This is what the next section is about.</p>
+
+				<h2><a id="index_2"></a>A form of compaction</h2>
+					<p>From the previous table, let's propose a way to compact the information.
+It will be as simple as inserting the level number instead of using tabs,
+and separating it with the usual character ':'.</p>
+<p>So, the previous example would look like:</p>
+
+				<pre>0:Node_0 (com.example.docs):
+1:Node_1:
+2:Node_2: Node2 Text
+3:Node_3: Node3 Text
+1:Node_4:
+2:Node_5: Node5 Text
+2:Node_6: Node6 Text
+3:Continuation text
+3:Another line of text
+2:Node_7:
+3:Node_8:
+4:Node_9: Last line</pre>
+				<p>Really, the rule for compacting is this simple:</p>
+
+				<div class="row">
+		<div class="assert"><p>Substitute the starting tabs with: <br>number of tabs + ':'</p>
+</div>
+	</div>
+				<p>The usefulness of compaction is to create a slightly more efficient format,
+which is still easy for humans to read and write.
+With the level numbers it is also very easy to read,
+and for machines it has some advantages:</p>
+<ul>
+<li>The file size is usually smaller.</li>
+<li>Parsing the file is faster, since there is no need to calculate the level through tabs (or spaces).</li>
+</ul>
+
 	
 		<div class="column row book_nav clearfix">
 		
@@ -62,14 +192,14 @@
   
   <aside id="index_content">
 			<div class="d-none d-md-block" style="margin-bottom:3rem;">
-											<h2><a id="index_1"></a>Introduction</h2>
+											<h2><a id="index_3"></a>Introduction</h2>
 							<div class="link">
 		<a href="index" ><span class='STxT'>STxT</span> in 1 Minute</a>
 	</div>
 						<div class="link">
 		<a href="tutorial" ><span class='STxT'>STxT</span> Tutorial</a>
 	</div>
-						<h2><a id="index_2"></a>The Language</h2>
+						<h2><a id="index_4"></a>The Language</h2>
 							<div class="link">
 		<a href="raw-docs" >Documents without namespace</a>
 	</div>
@@ -82,7 +212,7 @@
 						<div class="link">
 		<a href="examples" >Examples</a>
 	</div>
-						<h2><a id="index_3"></a>Technical Resources</h2>
+						<h2><a id="index_5"></a>Technical Resources</h2>
 							<div class="link">
 		<a href="doc-parsing" >Document Parsing</a>
 	</div>
