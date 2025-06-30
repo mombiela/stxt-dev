@@ -51,13 +51,26 @@
 
 	
 							<h1><a id="index_0"></a>Documents without namespace</h1>
-					<p>I think it is already clear what documents without namespace are like. Example:</p>
+					<p><span class='STxT'>STxT</span> documents are text documents, with a structure of nested nodes. To determine the nesting level,
+tabs (or spaces) are used to indicate the nesting level. The documents will have the following characteristics:</p>
+
+				<div class="row">
+		<div class="alert"><ul>
+<li>UTF-8 encoding</li>
+<li>Identifiers are CASE-INSENSITIVE. Spaces are allowed in names, but not <code>:</code></li>
+<li>Multiline nodes will be as follows: <code>:node name:</code>. This allows you to visually identify a final node that
+may consist of several lines</li>
+<li>Comments: In <span class='STxT'>STxT</span>, comments are all lines that start with the <code>#</code> character</li>
+</ul>
+</div>
+	</div>
+				<p>An example</p>
 
 				<pre>Recipe: Macaroni recipe
-	Description:
-		:This is the description of the macaroni recipe.
-		:Bla, bla, bla
-		:Bla, bla, bla
+	:Description:
+		This is the description of the macaroni recipe.
+		Bla, bla, bla
+		Bla, bla, bla
 	Servings: 3
 	Difficulty: easy
 	Ingredients:
@@ -67,56 +80,13 @@
 		Step: (1) Make the sofrito
 		Step: (2) Boil macaroni
 		Step: (3) Mix macaroni with sofrito and serve</pre>
-				<p>Let's go a little deeper.</p>
-
-				<h2><a id="index_1"></a>Encoding</h2>
-					<div class="row">
-		<div class="assert"><p>UTF-8 Encoding Always</p>
-</div>
-	</div>
-				<p>End. It's a good rule and I'm very happy with it.
-Nowadays it is the most acceptable, most universal,
-and most implemented encoding. I don't think this will change in the coming years.</p>
-
-				<h2><a id="index_2"></a>Identifiers</h2>
-					<div class="row">
-		<div class="assert"><p>Identifiers are CASE-INSENSITIVE</p>
-</div>
-	</div>
-				<div class="row">
-		<div class="assert"><p>Spaces are allowed in names. <br>Why not? To look like computer scientists?<br>Times are changing :-D</p>
-</div>
-	</div>
-				<h2><a id="index_3"></a>Escape characters</h2>
-					<div class="row">
-		<div class="assert"><p>There are no escape characters</p>
-</div>
-	</div>
-				<p>I think this is the best thing I've heard in a long time.
-<strong>There are no escape characters</strong> <em>because they are not necessary</em>.
-Due to the structure, they are not needed.</p>
-
-				<h2><a id="index_4"></a>Comments</h2>
-					<p>All computer scientists know what comments are in any language.
-In case there is any newbie, I will explain that comments are text that is only there
-to comment or add some observation, but do not affect the document itself.</p>
-
-				<div class="row">
-		<div class="assert"><p>In <span class='STxT'>STxT</span>, all lines that start with the character # are comments</p>
-</div>
-	</div>
-				<p>Comments do not need to have any kind of format,
-it is free text that the author of the document can include.
-Also, it does not have to be located in any specific place in the document.
-Any line that starts with # will be treated as a comment,
-and will not be taken into account by programs or communications.</p>
-<p>Example:</p>
+				<p>The same example with comments</p>
 
 				<pre>Recipe: Macaroni recipe
 <strong># (1) This is a comment</strong>
 <strong># (2) This is also a comment</strong>
 	<strong># (3) This is also a comment</strong>
-	Description:
+	:Description:
 		:This is the description of the macaroni recipe.
 		:Bla, bla, bla
 	<strong># (4) This is a comment</strong>	
@@ -128,61 +98,44 @@ and will not be taken into account by programs or communications.</p>
 		Ingredient: (100g) Tomato
 		Ingredient: (240g) Macaroni
 	Steps:
-		Step: (1) Make the sofrito
-		Step: (2) Boil macaroni
-		Step: (3) Mix macaroni with sofrito and serve</pre>
-				<p>It should be noted here that <code>(1),(2),(3) and (4)</code> are comments, while
+		Step: Make the sofrito
+		Step: Boil macaroni
+		Step: Mix macaroni with sofrito and serve</pre>
+				<p>Here it should be noted that <code>(1),(2),(3) and (4)</code> are comments, while
 <code>(5)</code> is not, since it is inside the indented text.</p>
 
-				<h2><a id="index_5"></a>Nodes and indentation</h2>
-					<p>We have previously said that an <span class='STxT'>STxT</span> document is a set of nested nodes.
-The indentation is very similar to other languages, and you can use tabs or spaces.</p>
+				<h2><a id="index_1"></a>Nodes and indentation</h2>
+					<p>An <span class='STxT'>STxT</span> document is a set of nested nodes.<br>Indentation is very similar to other languages, and you can use tabs or spaces.</p>
 
 				<div class="row">
-		<div class="assert"><p>4 spaces are equivalent to a tab
-It is better not to mix documents with tabs and spaces</p>
+		<div class="assert"><p>4 spaces are equivalent to one tab<br>It is better not to mix documents with tabs and spaces</p>
 </div>
 	</div>
-				<h2><a id="index_6"></a>Multiline nodes</h2>
-					<p>These nodes allow you to have <strong>full texts on several lines</strong>. In documents with namespace
-they will be equivalent to <code>TEXT</code> type nodes. They are built with lines
-that start with <code>:</code>, but without a previous label. Example:</p>
+				<p>another characteristic is the following:</p>
 
-				<pre>Recipe: Macaroni recipe
-	<strong>Description:</strong>
-		<strong>:This is the description of the macaroni recipe.</strong>
-		<strong>:Bla, bla, bla</strong>
-		<strong>:Bla, bla, bla</strong>
-	Servings: 3
-	Difficulty: easy
-	Ingredients:
-		Ingredient: (100g) Tomato
-		Ingredient: (240g) Macaroni
-	Steps:
-		Step: (1) Make the sofrito
-		Step: (2) Boil macaroni
-		Step: (3) Mix macaroni with sofrito and serve</pre>
-				<p>We have just seen that the <code>Description</code> node is a MULTILINE node.</p>
-
-				<h2><a id="index_7"></a>(Prefix) Central (Suffix)</h2>
+				<div class="row">
+		<div class="assert"><p>Levels must be consecutive<br>a level <code>n</code> must be followed by <code>n+1</code>,<br>with no jumps between them.</p>
+</div>
+	</div>
+				<h2><a id="index_2"></a>(Prefix) Central (Suffix)</h2>
 					<p>Although it is not part of the language, it is common practice that
 simple fields are structured with <code>(prefix) central (suffix)</code>.
 All 3 or only 1 or 2 of them may appear. Example:</p>
 
 				<pre>Recipe: Macaroni recipe
-	Description:
-		:This is the description of the macaroni recipe.
-		:Bla, bla, bla
-		:Bla, bla, bla
+	:Description:
+		This is the description of the macaroni recipe.
+		Bla, bla, bla
+		Bla, bla, bla
 	Servings: 3
 	Difficulty: easy
 	Ingredients:
 		Ingredient: <strong>(100g) Tomato</strong>
 		Ingredient: <strong>(240g) Macaroni</strong>
 	Steps:
-		Step: <strong>(1) Make the sofrito</strong>
-		Step: <strong>(2) Boil macaroni</strong>
-		Step: <strong>(3) Mix macaroni with sofrito and serve</strong></pre>
+		Step: <strong>Make the sofrito</strong>
+		Step: <strong>Boil macaroni</strong>
+		Step: <strong>Mix macaroni with sofrito and serve</strong></pre>
 	
 		<div class="column row book_nav clearfix">
 		
@@ -193,14 +146,14 @@ All 3 or only 1 or 2 of them may appear. Example:</p>
   
   <aside id="index_content">
 			<div class="d-none d-md-block" style="margin-bottom:3rem;">
-											<h2><a id="index_8"></a>Introduction</h2>
+											<h2><a id="index_3"></a>Introduction</h2>
 							<div class="link">
 		<a href="index" ><span class='STxT'>STxT</span> in 1 Minute</a>
 	</div>
 						<div class="link">
 		<a href="tutorial" ><span class='STxT'>STxT</span> Tutorial</a>
 	</div>
-						<h2><a id="index_9"></a>The Language</h2>
+						<h2><a id="index_4"></a>The Language</h2>
 							<div class="link">
 		<a href="raw-docs"  class="selected"  >Documents without namespace</a>
 	</div>
@@ -213,7 +166,7 @@ All 3 or only 1 or 2 of them may appear. Example:</p>
 						<div class="link">
 		<a href="examples" >Examples</a>
 	</div>
-						<h2><a id="index_10"></a>Technical Resources</h2>
+						<h2><a id="index_5"></a>Technical Resources</h2>
 							<div class="link">
 		<a href="ebnf" >EBNF</a>
 	</div>
