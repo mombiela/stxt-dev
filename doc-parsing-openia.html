@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Parsing</title>
+	<meta name="description" content="Parsing files in <span class='STxT'>STxT</span> format (unified view)">
+	<meta name="author" content="Joan Costa Mombiela">
+
+	<style>@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');</style>
+    <link rel="stylesheet" href="/css/site.css?v=20241210">
+		
+			<link rel="alternate" hreflang="es" href="https://stxt.dev/es/doc-parsing-openia" />
+					
+		
+	<link rel="alternate" hreflang="x-default" href="https://stxt.dev/doc-parsing-openia" />
+</head>
+	
+	<body>
+		<header id="main_header">
+    <div class="title">
+		<a href="/">
+		                  			<span class='STxT'>STxT</span>: Semantic TexT
+			    </a>
+	</div>
+	<div class="subtitle"><a href="index">One Language, Infinite Possibilities</a></div>
+	<ul>
+		<li><a href="contribute" title="Cooperate" rel="nofollow">Cooperate</a></li>
+		<li><b> | </b></li>
+							<li><a href="./es/doc-parsing-openia" title="Español"><i>Español</i></a></li>
+			<li><b>English</b></li>
+			</ul>
+</header>
+		<div class="top-bar">
+	<ul>
+		<li><a href="/" title="Introduction">Introduction</a></li>
+		<li><a href="tutorial" title="Tutorial">Tutorial</a></li>
+		<li><a href="examples" title="Examples">Examples</a></li>
+		<li><a href="parsers" title="Parsers">Parsers</a></li>
+		<li class="link_src"><a href="doc-parsing-openia.stxt" target="doc-parsing-openia" title="Source <span class='STxT'>STxT</span>">Source Code</a></li>
+	</ul>
+</div>
+	
+		<div id="main_content" class="clearfix">
+  <article>
+		<div class="column row book_nav clearfix">
+		
+		           	<a style="float:left;"	href="ebnf" title="Previous">&#x25C4; Previous</a>
+				           	<a style="float:right;" href="parsers" title="Next">Next &#x25BA;</a>
+			</div>
+
+	
+										<h1><a id="index_0"></a><span class='STxT'>STxT</span> Parsing</h1>
+					<h2><a id="index_1"></a>Generic process</h2>
+					<h3><a id="index_2"></a>Algorithm overview</h3>
+					<p><span class='STxT'>STxT</span> document parsing can be done in a single pass, line by line.
+The central idea is to maintain a simple state with:</p>
+<ul>
+<li>A structure that tells us which is the last open node at each level.</li>
+<li>An active multiline node (for example, TEXT or BASE64) if there is one.</li>
+<li>The namespace repository to validate nodes when creating and closing them.</li>
+</ul>
+<p>Conceptually, this is equivalent to using a stack of nodes representing
+the current branch of the tree: the root node is at the base of the stack and the last
+node of the current branch is at the top.</p>
+
+				<pre>ALGORITHM: parseFile(file)
+	state = initializeState(file)
+	
+	while not endOfFile(file):
+		physicalLine = readLine(file)
+		processLine(state, physicalLine)
+	
+	closeAndValidatePendingNodes(state)
+	
+	return state.rootNodeList</pre>
+				<p>The cost is linear in the size of the file, and the parser can act
+at the same time as a structure and type validator.</p>
+
+				<h3><a id="index_3"></a>Internal parser state</h3>
+					<pre>STRUCTURE: Node
+	name        // &quot;Title&quot;, &quot;Body Content&quot;, ...
+	type        // NODE, TEXT, BASE64, INTEGER, ...
+	level       // indentation level
+	parent      // reference to parent node (or null)
+	children    // list of child nodes
+	value       // for scalar nodes
+	text        // text buffer for multiline nodes
+	namespace   // node specification according to repository
+
+STRUCTURE: ParserState
+	stackByLevel: map&lt;level -&gt; Node&gt;   // last open node at each level
+	multilineNode: Node or null        // active TEXT/BASE64 node, if any
+	rootNodeList: list&lt;Node&gt;           // level 0 nodes
+	namespaceRepository                // access to namespaces
+	currentLineNum: integer
+	currentFile: identifier</pre>
+				<h3><a id="index_4"></a>Main parsing loop</h3>
+					<pre>func parseFile(file):
+	state = initializeState(file)
+	
+	while !endOfFile(file):
+		physicalLine = readLine(file)   // support LF and CRLF
+		state.currentLineNum += 1
+		processLine(state, physicalLine)
+	
+	closeAndValidatePendingNodes(state)
+	return state.rootNodeList</pre>
+				<h3><a id="index_5"></a>Line processing: steps</h3>
+					<p>The processing of each line can be broken down into the following steps:</p>
+<ol>
+<li>Line normalization and level calculation.</li>
+<li>Handling multiline nodes.</li>
+<li>Decision: multiline text or new node?</li>
+<li>Closing nodes when changing level.</li>
+<li>Node creation and initial validation via namespace.</li>
+</ol>
+
+				<h3><a id="index_6"></a>Step 1 – Normalization and level calculation</h3>
+					<pre>func normalizeLine(state, physicalLine):
+	// 1. Remove line terminators and trailing spaces
+	line = trimRight(physicalLine)
+	
+	// 2. Empty line
+	if line is empty:
+		result = new NormalizationResult()
+		if state.multilineNode != null:
+			result.isMultilineContinuation = true
+			result.isBlankLine = true
+		else:
+			result.isUseless = true     // ignorable
+		return result
+	
+	// 3. Comments (for example, lines starting with '#')
+	if isComment(line):
+		result = new NormalizationResult()
+		result.isUseless = true
+		return result
+	
+	// 4. Level calculation from indentation (tabs/spaces)
+	level = calculateLevel(line)              // defines how tabs/spaces are counted
+	textWithoutIndent = removeIndentation(line, level)
+	
+	// 5. Optional transformations to compact/semicompact form
+	compactText = compactIfNecessary(textWithoutIndent)
+	
+	result = new NormalizationResult()
+	result.isUseless = false
+	result.isMultilineContinuation = false
+	result.level = level
+	result.text = compactText
+	return result</pre>
+				<p>Level calculation must be consistent throughout the document.
+The exact rules (for example, how many spaces equal one level)
+are part of the implementation, but the model is always the same:
+an integer representing the depth of the line.</p>
+
+				<h3><a id="index_7"></a>Step 2 – Handling multiline nodes</h3>
+					<p>A multiline node is typically a node of type TEXT or BASE64 (according to namespace).
+The following lines, with a strictly greater level, are considered part of the
+text of this node as long as a new node does not appear at the same or higher level
+in the hierarchy.</p>
+
+				<pre>func handleMultilineIfApplies(state, normResult):
+	if state.multilineNode == null:
+		return false    // not treated as multiline
+	
+	node = state.multilineNode
+	nodeLevel = node.level
+	lineLevel = normResult.level
+	
+	// Blank line inside multiline
+	if normResult.isBlankLine:
+		node.text += &quot;\n&quot;
+		return true
+	
+	// Rules:
+	// - If the line has a level greater than the multiline node's
+	//   and does not appear to be a new node, treat as text.
+	if lineLevel &gt; nodeLevel and !hasNewNodeSyntax(normResult.text):
+		if node.text is empty:
+			node.text = normResult.text
+		else:
+			node.text += &quot;\n&quot; + normResult.text
+		return true
+	
+	// If we reach here, the line is no longer part of the multiline
+	// The effective closing of the node will be done when creating the next node
+	return false</pre>
+				<h3><a id="index_8"></a>Step 3 – Decision text vs new node</h3>
+					<pre>func processLine(state, physicalLine):
+	r = normalizeLine(state, physicalLine)
+	
+	// Ignored line
+	if r.isUseless:
+		return
+	
+	// Try to treat as multiline
+	if handleMultilineIfApplies(state, r):
+		return
+	
+	// From here, the line is a candidate for a new node
+	level = r.level
+	content = r.text
+	
+	// Additional check: in some cases it can be decided that,
+	// even if there is indentation, it is still multiline text.
+	// This can be refined with additional rules if the language requires it.
+	
+	// Close nodes according to the new level
+	closeNodesOfGreaterOrEqualLevel(state, level)
+	
+	// Create the new node
+	createNewNode(state, level, content)</pre>
+				<h3><a id="index_9"></a>Step 4 – Hierarchy management by level</h3>
+					<p>When a node with level N appears, all nodes with level greater than or equal to N
+are closed. This closing triggers validations of:</p>
+<ul>
+<li>Structure according to namespace.</li>
+<li>Data types of the values.</li>
+<li>Additional language restrictions.</li>
+</ul>
+
+				<pre>func closeNodesOfGreaterOrEqualLevel(state, lineLevel):
+	for each level in levelsOrderedDescending(state.stackByLevel):
+		if level &gt;= lineLevel:
+			node = state.stackByLevel[level]
+			closeAndValidateNode(state, node)
+			delete state.stackByLevel[level]
+			
+			if state.multilineNode == node:
+				state.multilineNode = null</pre>
+				<h3><a id="index_10"></a>Step 5 – Node creation and initial validation</h3>
+					<p>When creating a node, name and value are separated, its type is determined from
+the namespace, it is connected with its parent, and the level and multiline
+structures are updated.</p>
+
+				<pre>func createNewNode(state, level, lineContent):
+	name, rawValue = splitNameAndValue(lineContent)   // using ':'
+	normalizedName = normalizeCase(name)              // case-insensitive
+	
+	// Determine parent
+	parent = null
+	if level &gt; 0:
+		parent = state.stackByLevel[level - 1]
+	
+	// Resolve namespace and node type
+	spec = resolveNamespaceForNode(
+				state.namespaceRepository,
+				parent,
+				normalizedName)
+	
+	if spec == null:
+		throwError(&quot;Cannot deduce namespace for node '&quot; + normalizedName + &quot;'&quot;)
+	
+	node = new Node()
+	node.name = normalizedName
+	node.level = level
+	node.parent = parent
+	node.type = spec.type
+	node.namespace = spec
+	
+	// Insert into tree
+	if parent == null:
+		add state.rootNodeList &lt;- node
+	else:
+		add parent.children &lt;- node
+	
+	// Initialize content according to type
+	if node.type is TEXT or BASE64 or other multilineType:
+		node.text = rawValue
+		node.value = null
+		state.multilineNode = node
+	else:
+		node.value = rawValue
+		state.multilineNode = null
+	
+	// Register as last node of this level
+	state.stackByLevel[level] = node</pre>
+				<h3><a id="index_11"></a>Example execution trace</h3>
+					<p>Let's consider the following document:</p>
+
+				<pre>Email (com.example.docs):
+	From: John
+	To: Mary
+	Body Content:
+		Hello
+		World
+	Priority: 1
+Phone (com.example.docs):
+	Number: 123</pre>
+				<p>Summarized trace:</p>
+
+				<pre>LINE 1: &quot;Email (com.example.docs):&quot;
+	level = 0
+	name = &quot;email&quot;
+	node = NODE email
+	rootList = [Email]
+	stackByLevel[0] = Email
+
+LINE 2: &quot;    From: John&quot;
+	level = 1
+	parent = stackByLevel[0] = Email
+	node = child of Email (type according to namespace)
+	stackByLevel[1] = From
+
+LINE 3: &quot;    To: Mary&quot;
+	level = 1
+	close nodes level &gt;= 1 &rarr; From is closed
+	parent = Email
+	node = child of Email
+	stackByLevel[1] = To
+
+LINE 4: &quot;    Body Content:&quot;
+	level = 1
+	close nodes level &gt;= 1 &rarr; To is closed
+	parent = Email
+	node = Body Content (type TEXT according to namespace)
+	multilineNode = Body Content
+	stackByLevel[1] = Body Content
+
+LINE 5: &quot;        Hello&quot;
+	normalizeLine &rarr; level = 2, text = &quot;Hello&quot;
+	multilineNode = Body Content, lineLevel &gt; nodeLevel
+	&rarr; &quot;Hello&quot; is added to Body Content's text
+
+LINE 6: &quot;        World&quot;
+	same as previous
+	Body Content.text = &quot;Hello\nWorld&quot;
+
+LINE 7: &quot;    Priority: 1&quot;
+	normalizeLine &rarr; level = 1
+	handleMultilineIfApplies returns false
+	close nodes level &gt;= 1 &rarr; Body Content is closed
+	create Priority node as child of Email
+	stackByLevel[1] = Priority
+
+LINE 8: &quot;Phone (com.example.docs):&quot;
+	normalizeLine &rarr; level = 0
+	close nodes level &gt;= 0 &rarr; Priority and Email are closed
+	Email becomes part of rootNodeList
+	create Phone node at level 0
+	stackByLevel[0] = Phone
+
+LINE 9: &quot;    Number: 123&quot;
+	level = 1
+	parent = Phone
+	child node &quot;Number&quot;
+	stackByLevel[1] = Number</pre>
+				<p>At the end of the file, the remaining nodes (Number and Phone) are closed
+and the pending root nodes are added to the document's final list.</p>
+
+				<h3><a id="index_12"></a>Implementation-oriented pseudocode</h3>
+					<pre>class ParserState:
+	stackByLevel = {}           // level -&gt; Node
+	multilineNode = None
+	rootNodeList = []
+	namespaceRepository = ...
+	currentLineNum = 0
+	currentFile = None
+
+def parse(content, namespaceRepository):
+	state = ParserState()
+	state.namespaceRepository = namespaceRepository
+	
+	for rawLine in content.split('\n'):
+		state.currentLineNum += 1
+		processLine(state, rawLine)
+	
+	closeAndValidatePendingNodes(state)
+	return state.rootNodeList
+
+def processLine(state, rawLine):
+	r = normalizeLine(state, rawLine)
+	if r.isUseless:
+		return
+	
+	if handleMultilineIfApplies(state, r):
+		return
+	
+	level = r.level
+	content = r.text
+	
+	closeNodesOfGreaterOrEqualLevel(state, level)
+	createNewNode(state, level, content)</pre>
+				<h3><a id="index_13"></a>Node validations with namespace</h3>
+					<p>Validations are performed at two main moments:</p>
+<ol>
+<li>When creating a new node.</li>
+<li>When finishing a node.</li>
+</ol>
+
+				<ol>
+<li>Validation when creating node (namespace):</li>
+</ol>
+<p>When creating a node, the parser consults the namespace repository to:</p>
+<ul>
+<li>Determine if the node name is valid as a child of the current parent.</li>
+<li>Obtain its type (NODE, TEXT, INTEGER, BASE64, etc.).</li>
+<li>Apply additional rules (for example, required or order).</li>
+</ul>
+<p>If a valid namespace cannot be deduced, it means the node could not
+be created in that position and a parsing error occurs.</p>
+
+				<ol start="2">
+<li>Validation when finishing a node:</li>
+</ol>
+<p>A node is considered finished when:</p>
+<ul>
+<li>Another node appears with a level equal to or less than its own.</li>
+<li>The entire file has been processed and the node remains open.</li>
+</ul>
+<p>At that moment, it is validated:</p>
+
+				<pre>func closeAndValidateNode(state, node):
+	if node.type == NODE:
+		validateNumberAndTypeOfChildrenAccordingToNamespace(node)
+	else:
+		validateContentAccordingToType(node)</pre>
+				<p>For scalar nodes (INTEGER, NUMBER, BOOLEAN, etc.) regular expressions or equivalent methods are used. For TEXT/BASE64 nodes,
+it is validated that the structure (for example, absence of children) and the
+format of the content are correct.</p>
+
+				<h2><a id="index_14"></a>Language nodes</h2>
+					<p>The basic types of the language are not tied to a specific programming language,
+and are normally validated using regular expressions or equivalent methods.</p>
+<p>Among others, we have the following types:</p>
+<ul>
+<li>NODE</li>
+<li>TEXT</li>
+<li>URL</li>
+<li>NATURAL</li>
+<li>INTEGER</li>
+<li>RATIONAL</li>
+<li>NUMBER</li>
+<li>BINARY</li>
+<li>HEXADECIMAL</li>
+<li>BASE64</li>
+<li>BOOLEAN</li>
+</ul>
+<p>The regular expressions we could use to validate nodes are:</p>
+
+				<pre>BINARY       = ^(0|1|\s)+$
+BOOLEAN      = ^0|1$
+HEXADECIMAL  = ^([a-f0-9]|\s)+$
+INTEGER      = ^(\-|\+)?\d+$
+NATURAL      = ^\d+$
+NUMBER       = ^(\-|\+)?\d+\.\d+(e(\-|\+)?\d+)?$
+RATIONAL     = ^(\-|\+)?\d+\/\d+$</pre>
+				<h2><a id="index_15"></a>Namespaces</h2>
+					<h3><a id="index_16"></a>Storage</h3>
+					<p>Namespaces are obtained independently from document parsing.
+A common strategy is to keep a namespace repository on disk
+or in memory, and consult it each time a new node is created.</p>
+<p>This repository defines:</p>
+<ul>
+<li>Which nodes can appear in each context.</li>
+<li>What type each node has.</li>
+<li>What cardinality or structure restrictions apply.</li>
+</ul>
+
+				<h2><a id="index_17"></a>Details to consider</h2>
+					<p>There are some important details in parsing:</p>
+<ul>
+<li>Case-insensitive: All node names are considered case-insensitive,
+so they are normalized in the parsing process.</li>
+<li>Base64: In BASE64 nodes, line breaks are allowed and a standard
+parsing of the resulting content is applied.</li>
+<li>End-of-line formats: Both UNIX (LF) and DOS (CRLF) formats must be supported.
+This allows files to be edited from different environments
+without problems, although the recommended standard is always to use LF.</li>
+</ul>
+<p>The fact that parsing is strictly line by line and guided by
+indentation allows for very efficient parsers and enables
+them to be used as <span class='STxT'>STxT</span> document validators at load time.</p>
+
+	
+		<div class="column row book_nav clearfix">
+		
+		           	<a style="float:left;"	href="ebnf" title="Previous">&#x25C4; Previous</a>
+				           	<a style="float:right;" href="parsers" title="Next">Next &#x25BA;</a>
+			</div>
+  </article>
+  
+  <aside id="index_content">
+			<div class="d-none d-md-block" style="margin-bottom:3rem;">
+											<h2><a id="index_18"></a>Introduction</h2>
+							<div class="link">
+		<a href="index" ><span class='STxT'>STxT</span> in 1 Minute</a>
+	</div>
+						<div class="link">
+		<a href="tutorial" ><span class='STxT'>STxT</span> Tutorial</a>
+	</div>
+						<h2><a id="index_19"></a>The Language</h2>
+							<div class="link">
+		<a href="raw-docs" >Documents without namespace</a>
+	</div>
+						<div class="link">
+		<a href="ns-docs" >Documents with namespace</a>
+	</div>
+						<div class="link">
+		<a href="compact" >Compaction</a>
+	</div>
+						<div class="link">
+		<a href="examples" >Examples</a>
+	</div>
+						<h2><a id="index_20"></a>Technical Resources</h2>
+							<div class="link">
+		<a href="ebnf" >EBNF</a>
+	</div>
+						<div class="link">
+		<a href="doc-parsing" >Document Parsing</a>
+	</div>
+						<div class="link">
+		<a href="parsers" >Available Parsers</a>
+	</div>
+				</div>
+	  </aside>
+</div>
+		<footer><p>&copy; 2025 - This work is licensed under a <a rel="license" style="text-decoration:underline" href="https://raw.githubusercontent.com/mombiela/semantic-web-builder/master/LICENSE">MIT License</a>.</p></footer>
+	</body>
+</html>
