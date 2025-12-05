@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STXT Tutorial</title>
+	<meta name="description" content="${meta.getChild("description").text}">
+	<meta name="author" content="${meta.getChild("author").value}">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+
+	<style>@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');</style>
+    <link rel="stylesheet" href="/css/site.css?v=20241210">
+    
+    
+    
+		
+			
+			<link rel="alternate" hreflang="en" href="https://stxt.dev/lang-tutorial" />
+				
+	<link rel="alternate" hreflang="x-default" href="https://stxt.dev/lang-tutorial" />
+</head>
+	
+	<body>
+		<header id="main_header">
+    <div class="title">
+		<a href="/es">
+		                  			<span class='STxT'>STXT</span>: Semantic Text
+			    </a>
+	</div>
+	<div class="subtitle"><a href="index">Built for humans. Reliable for machines.</a></div>
+	<ul>
+		<li><a href="contribute" title="Contribuir" rel="nofollow">Contribuir</a></li>
+		<li><b> | </b></li>
+					<li><b>Español</b></li>
+			<li><a href="../lang-tutorial" title="Español"><i>English</i></a></li>
+					</ul>
+</header>
+		<div class="top-bar">
+	<ul>
+		<li><a href="/es" title="Introducción">Introducción</a></li>
+		<li><a href="lang-tutorial" title="Tutorial">Tutorial</a></li>
+		<li><a href="use-cases-stxt2" title="Casos de uso">Casos de uso</a></li>
+		<li><a href="tools-parsers" title="Parsers">Herramientas</a></li>
+		<li class="link_src"><a href="lang-tutorial.stxt" target="lang-tutorial" title="File lang-tutorial.stxt"><span class='STxT'>STXT</span></a></li>
+	</ul>
+</div>
+	
+		<div id="main_content" class="clearfix">
+	<article>
+		
+																																																																																																																																																																																																																																														
+	<div class="column row book_nav clearfix">
+		           	<a style="float:left;"	href="index" title="Introducción">&#x25C4; Introducción</a>
+				           	<a style="float:right;" href="lang-reference" title="Documentos <span class='STxT'>STXT</span>">Documentos <span class='STxT'>STXT</span> &#x25BA;</a>
+			</div>
+		
+		
+						<h1><a id="index_0"></a><span class='STxT'>STXT</span> Tutorial</h1>
+							<h2><a id="index_1"></a>¿Qué es <span class='STxT'>STXT</span>?</h2>
+							<p><span class='STxT'>STXT</span> es un lenguaje textual semántico y legible, pensado para representar
+documentos estructurados de forma simple y procesable por máquinas. Sus reglas
+básicas permiten nodos inline, bloques de texto literal y namespaces.</p>
+
+						<h2><a id="index_2"></a>Ejemplo: ficha de libro para editoriales</h2>
+							<p>A continuación mostramos un ejemplo práctico y sencillo para describir un libro
+que pueda usar una editorial: metadatos, capítulos y contenido de muestra.</p>
+
+						<pre>Book: Ejemplo de libro
+	Title: Arquitectura de software moderna
+	Authors:
+		Author: Mar&iacute;a P&eacute;rez
+		Author: Juan Garc&iacute;a
+	ISBN: 978-84-123456-7-8
+	Publisher: ACME Editorial
+	Published: 2025-10-01
+	Summary &gt;&gt;
+		Este libro ofrece una visi&oacute;n pr&aacute;ctica de patrones y buenas pr&aacute;cticas
+		para dise&ntilde;ar sistemas distribuidos y escalables.
+	Chapters:
+		Chapter: 1
+			Title: Introducci&oacute;n a la arquitectura
+			Pages: 20
+			Content &gt;&gt;
+				En este cap&iacute;tulo presentamos conceptos b&aacute;sicos: monolitos, microservicios
+				y criterios para elegir una arquitectura adecuada.
+		Chapter: 2
+			Title: Comunicaci&oacute;n entre servicios
+			Pages: 30
+			Content &gt;&gt;
+				Se describen protocolos, mensajer&iacute;a y patrones de integraci&oacute;n.</pre>
+						<h2><a id="index_3"></a>Asociar el documento a un namespace</h2>
+							<p>Podemos asociar la ficha a un namespace para validarla mediante un schema.</p>
+
+						<pre>Book (@com.acme.book): Ejemplo de libro
+	Title: Arquitectura de software moderna
+	Authors:
+		Author: Mar&iacute;a P&eacute;rez
+	ISBN: 978-84-123456-7-8</pre>
+						<h2><a id="index_4"></a>Schema de ejemplo (simplificado)</h2>
+							<p>Un schema permite definir la forma y los tipos de los nodos de un namespace.</p>
+
+						<pre>Schema (@stxt.schema): com.acme.book
+	Node: Book
+		Type: EMPTY
+		Childs &gt;&gt;
+			(1) Title
+			(1) Authors
+			(1) ISBN
+	Node: Title
+		Type: TEXT INLINE
+	Node: Authors
+		Type: TEXT MULTILINE
+	Node: ISBN
+		Type: TEXT INLINE
+	Node: Chapter
+		Type: EMPTY
+		Childs &gt;&gt;
+			(1) Title
+			(?) Pages
+			(?) Content</pre>
+						<h2><a id="index_5"></a>Buenas prácticas</h2>
+							<ul>
+<li>Usa bloques <code>&gt;&gt;</code> para contenido de capítulos o textos multilínea.</li>
+<li>Mantén la indentación consistente (4 espacios por nivel) y no mezcles tabs y espacios.</li>
+<li>Usa namespaces para separar esquemas por editoriales o colecciones.</li>
+<li>Define cardinalidades mínimas en los schemas para garantizar datos clave.</li>
+</ul>
+
+						<h2><a id="index_6"></a>Ejemplo final completo</h2>
+							<pre>Book (@com.acme.book): ACME - Arquitectura de software moderna
+	Title: Arquitectura de software moderna
+	Authors:
+		Author: Mar&iacute;a P&eacute;rez
+		Author: Juan Garc&iacute;a
+	ISBN: 978-84-123456-7-8
+	Chapters:
+		Chapter: 1
+			Title: Introducci&oacute;n a la arquitectura
+			Content &gt;&gt;
+				Conceptos b&aacute;sicos y objetivos del libro.</pre>
+						<p>Si quieres, puedo generar a partir de este ejemplo: (a) una conversión a JSON
+intermedio para procesar automáticamente, (b) un conversor a un formato de catálogo
+(ISBN/OPDS) o (c) tests de validación frente al schema de ejemplo. ¿Cuál prefieres?</p>
+
+		
+		
+																																																																																																																																																																																																																																														
+	<div class="column row book_nav clearfix">
+		           	<a style="float:left;"	href="index" title="Introducción">&#x25C4; Introducción</a>
+				           	<a style="float:right;" href="lang-reference" title="Documentos <span class='STxT'>STXT</span>">Documentos <span class='STxT'>STXT</span> &#x25BA;</a>
+			</div>
+  	</article>
+  
+	<aside id="index_content">
+			<div class="d-none d-md-block">
+				<h2><a id="index_7"></a><span class='STxT'>STXT</span></h2>
+					<div class="link">
+		<a href="index" >Introducción</a>
+	</div>
+				<div class="link">
+		<a href="lang-tutorial"  class="selected"  >Tutorial</a>
+	</div>
+				<h2><a id="index_8"></a>Referencia del Lenguaje</h2>
+					<div class="link">
+		<a href="lang-reference" >Documentos <span class='STxT'>STXT</span></a>
+	</div>
+				<div class="link">
+		<a href="lang-schema-ref" >Esquemas <span class='STxT'>STXT</span></a>
+	</div>
+				<div class="link">
+		<a href="lang-grammar" >Grammar</a>
+	</div>
+				<h2><a id="index_9"></a>Casos de uso</h2>
+					<div class="link">
+		<a href="use-cases-stxt2" ><span class='STxT'>STXT</span>2</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-corporate-docs" >Documentos Corporativos</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-wikipedia" >Wikipedia</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-cms" >CMS</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-editorial" >Publicaciones</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-config-files" >Ficheros configuración</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-open-api" >Open api</a>
+	</div>
+				<h2><a id="index_10"></a>Herramientas</h2>
+					<div class="link">
+		<a href="tools-parsers" >Parsers</a>
+	</div>
+				<div class="link">
+		<a href="tools-ides" >IDE's</a>
+	</div>
+				<div class="link">
+		<a href="tools-online-editor" >Editor online</a>
+	</div>
+		</div>
+	</aside>
+</div>
+		<footer><p>&copy; 2025 - Este obra está bajo una <a style="text-decoration:underline" rel="license" href="https://raw.githubusercontent.com/mombiela/semantic-web-builder/master/LICENSE">Licencia MIT</a>.</p></footer>
+	</body>
+</html>

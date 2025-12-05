@@ -1,0 +1,116 @@
+Schema (@stxt.schema): dev.stxt.namespace
+    Description: Schema mínimo para los ejemplos de documentos corporativos usados en use-cases-corporate-docs.stxt
+
+    Node: Contract
+        Type: TEXT INLINE
+        Childs>>
+            (1) Parties
+            (1) Effective date
+            (?) Termination
+            (?) Scope
+            (?) Fees
+
+    Node: Parties
+        Type: TEXT MULTILINE
+
+    Node: Scope
+        Type: TEXT MULTILINE
+
+    Node: Fees
+        Type: EMPTY
+        Childs>>
+            (1) Currency
+            (1) Amount
+            (?) Payment terms
+
+    Node: Documentation
+        Type: TEXT INLINE
+        Childs>>
+            (1) Title
+            (?) Version
+            (?) Sections
+            (?) Author
+            (?) Last reviewed
+
+    Node: Procedure
+        Type: TEXT INLINE
+        Childs>>
+            (?) Purpose
+            (?) Steps
+            (?) Frequency
+            (?) Owner
+
+    Node: Invoice
+        Type: TEXT INLINE
+        Childs>>
+            (1) Invoice No
+            (1) Date
+            (1) Customer
+            (?) Items
+            (?) Subtotal
+            (?) VAT
+            (?) Total
+            (?) Notes
+
+    Node: Customer
+        Type: TEXT MULTILINE
+
+    Node: Items
+        Type: TEXT MULTILINE
+
+    Node: Payroll
+        Type: TEXT INLINE
+        Childs>>
+            (1) Period
+            (1) Employee
+            (?) Base salary
+            (?) Extra pay
+            (?) Deductions
+            (?) Net pay
+            (?) Payment date
+
+    Node: Employee
+        Type: TEXT MULTILINE
+
+    Node: Policy
+        Type: TEXT INLINE
+        Childs>>
+            (1) Policy ID
+            (1) Effective date
+            (?) Scope
+            (?) Objective
+            (?) Responsibilities
+            (?) Key rules
+            (?) Review cycle
+            (?) Contact
+
+    Node: Responsibilities
+        Type: TEXT MULTILINE
+
+    Node: Minutes
+        Type: TEXT INLINE
+        Childs>>
+            (1) Meeting ID
+            (1) Date
+            (?) Time
+            (?) Location
+            (?) Attendees
+            (?) Agenda
+            (?) Decisions
+            (?) Action items
+            (?) Minutes prepared by
+            (?) Minutes approved
+
+    Node: Attendees
+        Type: TEXT MULTILINE
+
+    Node: Agenda
+        Type: TEXT MULTILINE
+
+    Node: Decisions
+        Type: TEXT MULTILINE
+
+    Node: Action items
+        Type: TEXT MULTILINE
+
+    # Fin del schema

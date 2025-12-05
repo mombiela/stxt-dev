@@ -1,0 +1,16 @@
+Document (dev.stxt.namespace):STXT Use Cases
+
+	Metadata:
+		Author: Joan Costa Mombiela
+		Last modif: 2025-12-05
+	
+	Header: OpenAPI con STXT
+	
+	Subheader: Ventajas de @STXT@
+	
+	Content:
+		OpenAPI, comúnmente escrito en YAML o JSON, puede volverse complejo y difícil de leer a medida que crece. 
+		@STXT@ simplifica esta tarea al mantener una estructura jerárquica clara mediante indentación, 
+		permitir comentarios fuera de bloques `>>` y ser fácilmente convertible a objetos. 
+		Esto lo convierte en una herramienta ideal para documentar servicios HTTP sin perder la expresividad de OpenAPI 3.
+	

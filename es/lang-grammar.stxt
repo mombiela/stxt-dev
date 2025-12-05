@@ -1,0 +1,44 @@
+Document (dev.stxt.namespace):EBNF
+	Metadata:
+		Description: Se muestra la descripción en EBNF de @STXT@
+		Author: Joan Costa Mombiela
+		Last modif: 2025-06-22
+		
+	Header: EBNF
+		
+	Content:A continuación mostramos la gramática EBNF:
+	
+	Code:
+		Document         ::= Line*
+
+		Line             ::= EmptyLine | CommentLine | NodeLine | BlockContentLine
+		EmptyLine        ::= Newline
+
+		CommentLine      ::= IndentOpt? "#" TEXT? Newline
+
+		NodeLine         ::= IndentPrefix NodeHeader (Separator InlineValue)? Newline
+
+		NodeHeader       ::= NodeName NamespaceOpt (BlockOp |)
+		BlockOp          ::= ">>"
+		Separator        ::= ":"
+		InlineValue      ::= TEXT
+
+		BlockStart       ::= IndentPrefix NodeName NamespaceOpt BlockOp Newline
+		BlockContentLine ::= IndentGreaterThan(NodeIndent) TEXT? Newline
+
+		NamespaceOpt     ::= "(" "@" Identifier ("." Identifier)* ")"
+
+		NodeName         ::= Identifier
+
+		IndentOpt        ::= (TAB | SPACES4)*
+		IndentPrefix     ::= IndentOpt
+		IndentGreaterThan(nodeIndent) ::= (line indentation) > nodeIndent
+
+		SPACES4          ::= "    "
+		TAB              ::= "\t"
+		Newline          ::= "\n" | "\r\n"
+		Identifier       ::= IdentifierChar ( IdentifierChar )*
+		IdentifierChar   ::= Letter | Digit | "_" | "-" | " " | "."
+		Letter           ::= ? any Unicode letter ?
+		Digit            ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+		TEXT             ::= ? any printable character except newline ?

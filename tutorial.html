@@ -41,34 +41,35 @@
 		<div class="top-bar">
 	<ul>
 		<li><a href="/" title="Introduction">Introduction</a></li>
-		<li><a href="tutorial" title="Tutorial">Tutorial</a></li>
-		<li><a href="examples" title="Examples">Examples</a></li>
-		<li><a href="parsers" title="Parsers">Parsers</a></li>
+		<li><a href="lang-tutorial" title="Tutorial">Tutorial</a></li>
+		<li><a href="use-cases-stxt2" title="Use cases">Use cases</a></li>
+		<li><a href="tools-parsers" title="Parsers">Tools</a></li>
 		<li class="link_src"><a href="tutorial.stxt" target="tutorial" title="File tutorial.stxt"><span class='STxT'>STXT</span></a></li>
 	</ul>
 </div>
 	
 		<div id="main_content" class="clearfix">
-  <article>
-		<div class="column row book_nav clearfix">
+	<article>
 		
-		           	<a style="float:left;"	href="index" title="Previous">&#x25C4; Previous</a>
-				           	<a style="float:right;" href="raw-docs" title="Next">Next &#x25BA;</a>
+																																																																																																																						
+	<div class="column row book_nav clearfix">
+		           	<a style="float:left;"	href="index" title="Introduction">&#x25C4; Introduction</a>
+				           	<a style="float:right;" href="reference" title="<span class='STxT'>STXT</span> Documents"><span class='STxT'>STXT</span> Documents &#x25BA;</a>
 			</div>
-
-	
-							<h1><a id="index_0"></a><span class='STxT'>STXT</span> Tutorial</h1>
-					<h2><a id="index_1"></a>What is <span class='STxT'>STXT</span>?</h2>
-					<p>It is a purely semantic language, with very basic rules,
+		
+		
+											<h1><a id="index_0"></a><span class='STxT'>STXT</span> Tutorial</h1>
+							<h2><a id="index_1"></a>What is <span class='STxT'>STXT</span>?</h2>
+							<p>It is a purely semantic language, with very basic rules,
 that allows the creation of documents with structured content
 and easy to interpret, both by humans (without computer knowledge) and by machines.
 You can be reading a document in <span class='STxT'>STXT</span> without actually realizing
 that it is.</p>
 
-				<h2><a id="index_2"></a>Documents without namespace</h2>
-					<p>Here is an example of a cooking recipe:</p>
+						<h2><a id="index_2"></a>Documents without namespace</h2>
+							<p>Here is an example of a cooking recipe:</p>
 
-				<pre>Recipe: Macaroni Recipe
+						<pre>Recipe: Macaroni Recipe
 	<strong>:Description:</strong>
 		This is the description of the macaroni recipe.
 		Bla, bla, bla
@@ -82,19 +83,19 @@ that it is.</p>
 		Step: Make the sofrito
 		Step: Boil macaroni
 		Step: Mix macaroni with sofrito and serve</pre>
-				<p>This is a <strong><span class='STxT'>STXT</span> document without namespace</strong>. This type of document
-is structured, but we do not know what form the nodes have. In any case, you can
+						<p>This is a <strong><span class='STxT'>STXT</span> document without namespace</strong>. These types of documents
+are structured, but we do not know what shape the nodes have. In any case, you can
 already see that they have structure, with a main node <code>Recipe</code>, which has
 a <code>Description</code> node, <code>Ingredients</code>, etc. In turn, these nodes have others, and so on
 until forming a hierarchical structure.</p>
 <p>It is worth mentioning the <code>Description</code> node, which is a node that allows <strong>multilines</strong>.
-As there is no prior structure, they are distinguished because the node name
+Not having a previous structure, they are distinguished because the node name
 is in the form <code>:node name:</code></p>
 
-				<h2><a id="index_3"></a>Documents with namespace</h2>
-					<p>Now an example of the same recipe with a namespace:</p>
+						<h2><a id="index_3"></a>Documents with namespace</h2>
+							<p>Now an example of the same recipe with a namespace:</p>
 
-				<pre>Recipe <strong>(com.kocinando.receta)</strong>: Macaroni Recipe
+						<pre>Recipe <strong>(com.kocinando.receta)</strong>: Macaroni Recipe
 	Description:
 		This is the description of the macaroni recipe.
 		Bla, bla, bla
@@ -108,10 +109,10 @@ is in the form <code>:node name:</code></p>
 		Step: Make the sofrito
 		Step: Boil macaroni
 		Step: Mix macaroni with sofrito and serve</pre>
-				<p>Now we show the namespace. <strong>The definition of the namespace is found in
+						<p>Now we show the namespace. <strong>The definition of the namespace is found in
 a document without namespace</strong>:</p>
 
-				<pre><strong>Namespace: com.kocinando.receta</strong>
+						<pre><strong>Namespace: com.kocinando.receta</strong>
 	Recipe:
 	    Description: (?) TEXT
 	    Servings: (?) NUMBER
@@ -123,12 +124,12 @@ a document without namespace</strong>:</p>
 			Ingredient: (+)
 	    Steps: (1)
 	    	Step: (+)</pre>
-				<h2><a id="index_4"></a>Comments</h2>
-					<p>It is possible to insert comments in the documents to
+						<h2><a id="index_4"></a>Comments</h2>
+							<p>It is possible to insert comments in the documents to
 express unfinished parts, thoughts of the author, etc.
 Comments will not be used but allow enriching the document.</p>
 
-				<pre>Recipe (com.kocinando.receta): Macaroni Recipe
+						<pre>Recipe (com.kocinando.receta): Macaroni Recipe
 <strong># This recipe was given to me by XX and I have made it a lot of times</strong>
 <strong># You will love it!!</strong>
 	Description:
@@ -144,24 +145,24 @@ Comments will not be used but allow enriching the document.</p>
 		Step: Make the sofrito
 		Step: Boil macaroni
 		Step: Mix macaroni with sofrito and serve</pre>
-				<h2><a id="index_5"></a>Different namespaces in a document</h2>
-					<p>A namespace can refer to another, to indicate that
+						<h2><a id="index_5"></a>Different namespaces in a document</h2>
+							<p>A namespace can refer to another, to indicate that
 a part of the document has the structure in another namespace.
 Better to see an example:</p>
 
-				<pre><strong>Namespace:com.kocinando.recetario</strong>
+						<pre><strong>Namespace:com.kocinando.recetario</strong>
 	RecipeBook:
 		Recipe: (+) <strong>(com.kocinando.receta)</strong></pre>
-				<p>Here we see that <code>Recipe</code> is from another namespace and we see that
+						<p>Here we see that <code>Recipe</code> is from another namespace and we see that
 instead of putting the structure, it refers to another namespace.</p>
 
-				<div class="row">
+						<div class="row">
 		<div class="assert"><p>It is NOT necessary to specify the inner namespace, only the main node.</p>
 </div>
 	</div>
-				<p>Thus, an example of a recipe book would be:</p>
+						<p>Thus, an example of a recipe book would be:</p>
 
-				<pre><strong>RecipeBook (com.kocinando.recetario): Mom's Recipes</strong> 
+						<pre><strong>RecipeBook (com.kocinando.recetario): Mom's Recipes</strong> 
 	<strong>Recipe: Macaroni Recipe</strong>
 		Description:
 			This is the description of the macaroni recipe.
@@ -184,48 +185,43 @@ instead of putting the structure, it refers to another namespace.</p>
 		Steps:
 			Step: Put tomato and cheese on pizza
 			Step: Bake for 15'</pre>
-	
-		<div class="column row book_nav clearfix">
 		
-		           	<a style="float:left;"	href="index" title="Previous">&#x25C4; Previous</a>
-				           	<a style="float:right;" href="raw-docs" title="Next">Next &#x25BA;</a>
+		
+																																																																																																																						
+	<div class="column row book_nav clearfix">
+		           	<a style="float:left;"	href="index" title="Introduction">&#x25C4; Introduction</a>
+				           	<a style="float:right;" href="reference" title="<span class='STxT'>STXT</span> Documents"><span class='STxT'>STXT</span> Documents &#x25BA;</a>
 			</div>
-  </article>
+  	</article>
   
-  <aside id="index_content">
-			<div class="d-none d-md-block" style="margin-bottom:3rem;">
-											<h2><a id="index_6"></a>Introduction</h2>
-							<div class="link">
-		<a href="index" ><span class='STxT'>STXT</span> in 1 Minute</a>
+	<aside id="index_content">
+			<div class="d-none d-md-block">
+							<h2><a id="index_6"></a><span class='STxT'>STXT</span></h2>
+					<div class="link">
+		<a href="index" >Introduction</a>
 	</div>
-						<div class="link">
-		<a href="tutorial"  class="selected"  ><span class='STxT'>STXT</span> Tutorial</a>
+				<div class="link">
+		<a href="tutorial"  class="selected"  >Tutorial</a>
 	</div>
-						<h2><a id="index_7"></a>The Language</h2>
-							<div class="link">
-		<a href="raw-docs" >Documents without namespace</a>
+				<div class="link">
+		<a href="reference" ><span class='STxT'>STXT</span> Documents</a>
 	</div>
-						<div class="link">
-		<a href="ns-docs" >Documents with namespace</a>
+				<div class="link">
+		<a href="schema" ><span class='STxT'>STXT</span> Schemas</a>
 	</div>
-						<div class="link">
-		<a href="compact" >Compaction</a>
-	</div>
-						<div class="link">
-		<a href="examples" >Examples</a>
-	</div>
-						<h2><a id="index_8"></a>Technical Resources</h2>
-							<div class="link">
+				<div class="link">
 		<a href="ebnf" >EBNF</a>
 	</div>
-						<div class="link">
-		<a href="doc-parsing" >Document Parsing</a>
+				<h2><a id="index_7"></a>Use Cases</h2>
+					<div class="link">
+		<a href="use-case-cms" >CMS</a>
 	</div>
-						<div class="link">
-		<a href="parsers" >Available Parsers</a>
+				<h2><a id="index_8"></a>Technical Resources</h2>
+					<div class="link">
+		<a href="tools-parsers" >Parsers</a>
 	</div>
-				</div>
-	  </aside>
+		</div>
+	</aside>
 </div>
 		<footer><p>&copy; 2025 - This work is licensed under a <a rel="license" style="text-decoration:underline" href="https://raw.githubusercontent.com/mombiela/semantic-web-builder/master/LICENSE">MIT License</a>.</p></footer>
 	</body>

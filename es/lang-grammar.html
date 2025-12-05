@@ -3,9 +3,9 @@
 	<head>    <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STXT - Built for humans. Reliable for machines.</title>
-	<meta name="description" content="${meta.getChild("description").text}">
-	<meta name="author" content="${meta.getChild("author").value}">
+    <title>EBNF</title>
+	<meta name="description" content="Se muestra la descripción en EBNF de <span class='STxT'>STXT</span>">
+	<meta name="author" content="Joan Costa Mombiela">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,9 +18,9 @@
     
 		
 			
-			<link rel="alternate" hreflang="en" href="https://stxt.dev/index" />
+			<link rel="alternate" hreflang="en" href="https://stxt.dev/lang-grammar" />
 				
-	<link rel="alternate" hreflang="x-default" href="https://stxt.dev/index" />
+	<link rel="alternate" hreflang="x-default" href="https://stxt.dev/lang-grammar" />
 </head>
 	
 	<body>
@@ -35,7 +35,7 @@
 		<li><a href="contribute" title="Contribuir" rel="nofollow">Contribuir</a></li>
 		<li><b> | </b></li>
 					<li><b>Español</b></li>
-			<li><a href="../index" title="Español"><i>English</i></a></li>
+			<li><a href="../lang-grammar" title="Español"><i>English</i></a></li>
 					</ul>
 </header>
 		<div class="top-bar">
@@ -44,7 +44,7 @@
 		<li><a href="lang-tutorial" title="Tutorial">Tutorial</a></li>
 		<li><a href="use-cases-stxt2" title="Casos de uso">Casos de uso</a></li>
 		<li><a href="tools-parsers" title="Parsers">Herramientas</a></li>
-		<li class="link_src"><a href="index.stxt" target="index" title="File index.stxt"><span class='STxT'>STXT</span></a></li>
+		<li class="link_src"><a href="lang-grammar.stxt" target="lang-grammar" title="File lang-grammar.stxt"><span class='STxT'>STXT</span></a></li>
 	</ul>
 </div>
 	
@@ -53,82 +53,66 @@
 		
 																																																																																																																																																																																																																																														
 	<div class="column row book_nav clearfix">
-				           	<a style="float:right;" href="lang-tutorial" title="Tutorial">Tutorial &#x25BA;</a>
+		           	<a style="float:left;"	href="lang-schema-ref" title="Esquemas <span class='STxT'>STXT</span>">&#x25C4; Esquemas <span class='STxT'>STXT</span></a>
+				           	<a style="float:right;" href="use-cases-stxt2" title="<span class='STxT'>STXT</span>2"><span class='STxT'>STXT</span>2 &#x25BA;</a>
 			</div>
 		
 		
-						<h1><a id="index_0"></a><span class='STxT'>STXT</span>: Introducción</h1>
-							<div class="row">
-		<div class="alert"><p><span class='STxT'>STXT</span> tiene un espíritu <strong>Human-First</strong>, colocando las personas en el centro. <br>Los documentos son legibles y expresivos, y al mismo tiempo fiables para máquinas.</p>
-</div>
-	</div>
-						<h2><a id="index_1"></a>Documentos</h2>
-							<p>Un documento <span class='STxT'>STXT</span> es un archivo de texto estructurado, pensado para ser legible por personas y fácil de procesar por máquinas.
-Contiene &quot;nodos&quot;: líneas no vacías (fuera de bloques <code>&gt;&gt;</code>) que definen pares &quot;Nombre&quot; y valor, o bien bloques de texto literal.</p>
+											<h1><a id="index_0"></a>EBNF</h1>
+							<p>A continuación mostramos la gramática EBNF:</p>
 
-						<h2><a id="index_2"></a>Características principales</h2>
-							<ul>
-<li>Nodos inline/contendor: <code>Nombre: Valor</code> (pueden tener hijos indentados).</li>
-<li>Bloques textuales: <code>Nombre &gt;&gt;</code> seguido de líneas literales que no se parsean internamente.</li>
-<li>La jerarquía se define por la indentación (tabuladores o 4 espacios por nivel según el documento).</li>
-<li>Soporta namespaces (e.g. <code>(@com.example)</code>), comentarios fuera de bloques (<code># ...</code>) y validación mediante schemas (<code>@stxt.schema</code>).</li>
-</ul>
-<p>Un documento STXT equilibra la claridad humana con una estructura semántica explícita — ideal para contenidos, configuraciones y datos inter-operables.</p>
+						<pre>Document         ::= Line*
 
-						<pre><strong>Email</strong>:
-	From: John Smith
-	To: Mery Adams
-	Cc: Keyla Brown
-	Title: Project report
-	<strong>Body Content &gt;&gt;</strong>
-		Hello Mery! 
-		The book is finished!</pre>
-						<h2><a id="index_3"></a>Documentos con namespace</h2>
-							<p><span class='STxT'>STXT</span> permite el uso de namespaces, para dar sentido y estructura al contenido.</p>
+Line             ::= EmptyLine | CommentLine | NodeLine | BlockContentLine
+EmptyLine        ::= Newline
 
-						<pre><strong>Email (@com.example.docs)</strong>:
-	From: John Smith
-	To: Mery Adams
-	Cc: Keyla Brown
-	Title: Project report
-	Body Content &gt;&gt;
-		Hello Mery!! 
-		The book is finished!!</pre>
-						<p>Y la definición del namespace</p>
+CommentLine      ::= IndentOpt? &quot;#&quot; TEXT? Newline
 
-						<pre><strong>Schema (@stxt.schema): com.example.docs</strong>
-	Node: Email
-		Childs &gt;&gt;
-			From
-			To
-			Cc
-			Bcc
-			Title
-			Body Content
-	Node: From
-	Node: To
-	Node: Cc
-	Node: Bcc
-	Node: Title
-	Node: Body Content</pre>
+NodeLine         ::= IndentPrefix NodeHeader (Separator InlineValue)? Newline
+
+NodeHeader       ::= NodeName NamespaceOpt (BlockOp |)
+BlockOp          ::= &quot;&gt;&gt;&quot;
+Separator        ::= &quot;:&quot;
+InlineValue      ::= TEXT
+
+BlockStart       ::= IndentPrefix NodeName NamespaceOpt BlockOp Newline
+BlockContentLine ::= IndentGreaterThan(NodeIndent) TEXT? Newline
+
+NamespaceOpt     ::= &quot;(&quot; &quot;@&quot; Identifier (&quot;.&quot; Identifier)* &quot;)&quot;
+
+NodeName         ::= Identifier
+
+IndentOpt        ::= (TAB | SPACES4)*
+IndentPrefix     ::= IndentOpt
+IndentGreaterThan(nodeIndent) ::= (line indentation) &gt; nodeIndent
+
+SPACES4          ::= &quot;    &quot;
+TAB              ::= &quot;\t&quot;
+Newline          ::= &quot;\n&quot; | &quot;\r\n&quot;
+Identifier       ::= IdentifierChar ( IdentifierChar )*
+IdentifierChar   ::= Letter | Digit | &quot;_&quot; | &quot;-&quot; | &quot; &quot; | &quot;.&quot;
+Letter           ::= ? any Unicode letter ?
+Digit            ::= &quot;0&quot; | &quot;1&quot; | &quot;2&quot; | &quot;3&quot; | &quot;4&quot; | &quot;5&quot; | &quot;6&quot; | &quot;7&quot; | &quot;8&quot; | &quot;9&quot;
+TEXT             ::= ? any printable character except newline ?</pre>
 		
 		
 																																																																																																																																																																																																																																														
 	<div class="column row book_nav clearfix">
-				           	<a style="float:right;" href="lang-tutorial" title="Tutorial">Tutorial &#x25BA;</a>
+		           	<a style="float:left;"	href="lang-schema-ref" title="Esquemas <span class='STxT'>STXT</span>">&#x25C4; Esquemas <span class='STxT'>STXT</span></a>
+				           	<a style="float:right;" href="use-cases-stxt2" title="<span class='STxT'>STXT</span>2"><span class='STxT'>STXT</span>2 &#x25BA;</a>
 			</div>
   	</article>
   
 	<aside id="index_content">
 			<div class="d-none d-md-block">
-				<h2><a id="index_4"></a><span class='STxT'>STXT</span></h2>
+				<h2><a id="index_1"></a><span class='STxT'>STXT</span></h2>
 					<div class="link">
-		<a href="index"  class="selected"  >Introducción</a>
+		<a href="index" >Introducción</a>
 	</div>
 				<div class="link">
 		<a href="lang-tutorial" >Tutorial</a>
 	</div>
-				<h2><a id="index_5"></a>Referencia del Lenguaje</h2>
+				<h2><a id="index_2"></a>Referencia del Lenguaje</h2>
 					<div class="link">
 		<a href="lang-reference" >Documentos <span class='STxT'>STXT</span></a>
 	</div>
@@ -136,9 +120,9 @@ Contiene &quot;nodos&quot;: líneas no vacías (fuera de bloques <code>&gt;&gt;<
 		<a href="lang-schema-ref" >Esquemas <span class='STxT'>STXT</span></a>
 	</div>
 				<div class="link">
-		<a href="lang-grammar" >Grammar</a>
+		<a href="lang-grammar"  class="selected"  >Grammar</a>
 	</div>
-				<h2><a id="index_6"></a>Casos de uso</h2>
+				<h2><a id="index_3"></a>Casos de uso</h2>
 					<div class="link">
 		<a href="use-cases-stxt2" ><span class='STxT'>STXT</span>2</a>
 	</div>
@@ -160,7 +144,7 @@ Contiene &quot;nodos&quot;: líneas no vacías (fuera de bloques <code>&gt;&gt;<
 				<div class="link">
 		<a href="use-cases-open-api" >Open api</a>
 	</div>
-				<h2><a id="index_7"></a>Herramientas</h2>
+				<h2><a id="index_4"></a>Herramientas</h2>
 					<div class="link">
 		<a href="tools-parsers" >Parsers</a>
 	</div>

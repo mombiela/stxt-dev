@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STXT-SCHEMA-SPEC-DRAFT</title>
+	<meta name="description" content="${meta.getChild("description").text}">
+	<meta name="author" content="Joan Costa Mombiela">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+
+	<style>@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');</style>
+    <link rel="stylesheet" href="/css/site.css?v=20241210">
+    
+    
+    
+		
+			
+			<link rel="alternate" hreflang="en" href="https://stxt.dev/lang-schema-ref" />
+				
+	<link rel="alternate" hreflang="x-default" href="https://stxt.dev/lang-schema-ref" />
+</head>
+	
+	<body>
+		<header id="main_header">
+    <div class="title">
+		<a href="/es">
+		                  			<span class='STxT'>STXT</span>: Semantic Text
+			    </a>
+	</div>
+	<div class="subtitle"><a href="index">Built for humans. Reliable for machines.</a></div>
+	<ul>
+		<li><a href="contribute" title="Contribuir" rel="nofollow">Contribuir</a></li>
+		<li><b> | </b></li>
+					<li><b>Español</b></li>
+			<li><a href="../lang-schema-ref" title="Español"><i>English</i></a></li>
+					</ul>
+</header>
+		<div class="top-bar">
+	<ul>
+		<li><a href="/es" title="Introducción">Introducción</a></li>
+		<li><a href="lang-tutorial" title="Tutorial">Tutorial</a></li>
+		<li><a href="use-cases-stxt2" title="Casos de uso">Casos de uso</a></li>
+		<li><a href="tools-parsers" title="Parsers">Herramientas</a></li>
+		<li class="link_src"><a href="lang-schema-ref.stxt" target="lang-schema-ref" title="File lang-schema-ref.stxt"><span class='STxT'>STXT</span></a></li>
+	</ul>
+</div>
+	
+		<div id="main_content" class="clearfix">
+	<article>
+		
+																																																																																																																																																																																																																																														
+	<div class="column row book_nav clearfix">
+		           	<a style="float:left;"	href="lang-reference" title="Documentos <span class='STxT'>STXT</span>">&#x25C4; Documentos <span class='STxT'>STXT</span></a>
+				           	<a style="float:right;" href="lang-grammar" title="Grammar">Grammar &#x25BA;</a>
+			</div>
+		
+		
+											<h1><a id="index_0"></a>STXT-SCHEMA-SPEC-DRAFT</h1>
+							<p><strong>STXT (Semantic Text) — Schema Language Specification</strong></p>
+<p><strong>Category:</strong> Standards Track</p>
+<p><strong>Status:</strong> Draft</p>
+<p><strong>Format:</strong> Markdown (RFC-style)</p>
+<hr />
+<h1>1. Introducción</h1>
+<p>Este documento define la especificación del lenguaje <strong>STXT Schema</strong>, un mecanismo para validar documentos STXT mediante reglas semánticas formales.</p>
+<p>Un <strong>schema</strong>:</p>
+<ul>
+<li>Es un documento STXT con namespace <code>@stxt.schema</code>.</li>
+<li>Define los nodos, tipos y cardinalidades del namespace objetivo.</li>
+<li>No modifica la sintaxis base de STXT; opera sobre la estructura ya parseada.</li>
+</ul>
+<hr />
+<h1>2. Terminología</h1>
+<p>Las palabras clave <strong>&quot;MUST&quot;</strong>, <strong>&quot;MUST NOT&quot;</strong>, <strong>&quot;SHOULD&quot;</strong>, <strong>&quot;SHOULD NOT&quot;</strong>, y <strong>&quot;MAY&quot;</strong> se interpretan según <strong>RFC 2119</strong>.</p>
+<p>Términos como <em>nodo</em>, <em>indentación</em>, <em>namespace</em>, <em>inline</em> y <em>bloque <code>&gt;&gt;</code></em> mantienen su significado en <em>STXT-SPEC</em>.</p>
+<hr />
+<h1>3. Relación entre STXT y Schema</h1>
+<p>La validación mediante schema ocurre <strong>después</strong> del parseo STXT:</p>
+<ol>
+<li>Parseo a estructura jerárquica STXT.</li>
+<li>Resolución del namespace lógico (herencia).</li>
+<li>Aplicación del schema correspondiente.</li>
+</ol>
+<hr />
+<h1>4. Estructura general de un Schema</h1>
+<p>Un schema es un documento cuyo nodo raíz es:</p>
+<pre><code class="language-stxt">Schema (@stxt.schema): &lt;namespace_objetivo&gt;
+</code></pre>
+<p>Ejemplo:</p>
+<pre><code class="language-stxt">Schema (@stxt.schema): com.example.docs
+    Description: Schema for example documents
+    Node: Document
+        Type: EMPTY
+        Childs&gt;&gt;
+            (?) Metadata (@com.google.html)
+            (*) Autor
+            (?) Fecha
+            (1) Content
+    Node: Autor
+        Type: TEXT INLINE
+    Node: Fecha
+        Type: DATE
+    Node: Content
+        Type: TEXT MULTILINE
+</code></pre>
+<hr />
+<h1>5. Un schema por namespace</h1>
+<p>Para cada namespace lógico:</p>
+<ul>
+<li><strong>MUST NOT</strong> existir más de un schema activo simultáneamente.</li>
+<li>Cargar dos schemas para el mismo namespace ⇒ <strong>error de configuración</strong>.</li>
+</ul>
+<hr />
+<h1>6. Definición de Nodos (<code>Node:</code>)</h1>
+<h3>6.1 Forma básica</h3>
+<pre><code class="language-stxt">Node: NombreNodo
+    Type: Tipo
+    Childs&gt;&gt;
+        (&lt;card&gt;) NombreHijo [(@namespace)]
+</code></pre>
+<p>Reglas:</p>
+<ul>
+<li><code>NombreNodo</code> <strong>MUST</strong> ser único dentro del schema.</li>
+<li>Cada <code>Node</code> define la semántica del nodo en el namespace objetivo.</li>
+<li>Si <code>Type</code> se omite ⇒ tipo por defecto <code>TEXT INLINE</code>.</li>
+</ul>
+<hr />
+<h1>7. Hijos (<code>Childs&gt;&gt;</code>) y namespaces cruzados</h1>
+<p>Cada entrada de <code>Childs&gt;&gt;</code>:</p>
+<pre><code class="language-text">(&lt;card&gt;) NombreHijo [(@namespace)]
+</code></pre>
+<p>Donde:</p>
+<ul>
+<li>
+<p><code>(&lt;card&gt;)</code> = cardinalidad (ver sección 8).</p>
+</li>
+<li>
+<p><code>NombreHijo</code> = nombre lógico del nodo hijo.</p>
+</li>
+<li>
+<p><code>(@namespace)</code> (opcional):</p>
+<ul>
+<li>Si se omite: se asume el namespace objetivo del schema.</li>
+<li>Si se indica: el hijo pertenece a ese namespace concreto.</li>
+</ul>
+</li>
+</ul>
+<h2>7.1. REGLA NUEVA (estricta y obligatoria)</h2>
+<p><strong>Todo nodo que aparezca en <code>Childs&gt;&gt;</code> debe tener una definición propia como <code>Node:</code> en su schema correspondiente.</strong></p>
+<p>Esto implica:</p>
+<ul>
+<li>
+<p>Si aparece:</p>
+<pre><code class="language-stxt">(1) Metadata (@com.google.html)
+</code></pre>
+<p>entonces <strong>debe existir un schema para <code>com.google.html</code></strong>
+<strong>y dentro de él debe existir <code>Node: Metadata</code></strong>.</p>
+</li>
+<li>
+<p>Esta regla es obligatoria tanto en modo <em>strict</em> como en modo no-strict.</p>
+</li>
+</ul>
+<p>Así evitamos hijos “fantasma” y garantizamos que todos los nodos tienen semántica definida.</p>
+<hr />
+<h1>8. Cardinalidades</h1>
+<p>Formas permitidas:</p>
+<table>
+<thead>
+<tr>
+<th>Forma</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>num</code></td>
+<td>Exactamente <code>num</code>.</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Cualquier número (<code>0..∞</code>).</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>Una o más (<code>1..∞</code>).</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>Cero o una (<code>0..1</code>).</td>
+</tr>
+<tr>
+<td><code>num+</code></td>
+<td><code>num</code> o más.</td>
+</tr>
+<tr>
+<td><code>num-</code></td>
+<td><code>0..num</code>.</td>
+</tr>
+<tr>
+<td><code>min,max</code></td>
+<td>Entre <code>min</code> y <code>max</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Reglas:</p>
+<ul>
+<li>Se aplica por instancia del nodo padre.</li>
+<li>Cuenta solo hijos <strong>directos</strong> con nombre + namespace efectivo.</li>
+<li>Un validador conforme <strong>MUST</strong> comprobar las cardinalidades.</li>
+</ul>
+<hr />
+<h1>9. Tipos</h1>
+<p>Los tipos definen:</p>
+<ol>
+<li><strong>La forma del valor del nodo</strong> (inline, bloque <code>&gt;&gt;</code>, o ninguno).</li>
+<li><strong>Si el nodo puede tener hijos</strong>.</li>
+<li><strong>La validación del contenido</strong>.</li>
+</ol>
+<h2>9.1. Tabla oficial de tipos</h2>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Formas permitidas de valor</th>
+<th>Hijos permitidos</th>
+<th>Descripción / Validación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TEXT INLINE</td>
+<td>INLINE</td>
+<td>SÍ</td>
+<td>Texto inline. <strong>Tipo por defecto.</strong></td>
+</tr>
+<tr>
+<td>TEXT MULTILINE</td>
+<td>BLOCK</td>
+<td>NO</td>
+<td>Solo bloque <code>&gt;&gt;</code>.</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>INLINE or BLOCK</td>
+<td>NO</td>
+<td>Texto genérico. Puede ser inline o bloque <code>&gt;&gt;</code>, pero nunca tiene hijos.</td>
+</tr>
+<tr>
+<td>BOOLEAN</td>
+<td>INLINE</td>
+<td>SÍ</td>
+<td><code>true</code> / <code>false</code>.</td>
+</tr>
+<tr>
+<td>NUMBER</td>
+<td>INLINE</td>
+<td>SÍ</td>
+<td>Número JSON.</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>INLINE</td>
+<td>SÍ</td>
+<td><code>YYYY-MM-DD</code>.</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>INLINE</td>
+<td>SÍ</td>
+<td>ISO 8601.</td>
+</tr>
+<tr>
+<td>EMAIL</td>
+<td>INLINE</td>
+<td>SÍ</td>
+<td>Email válido.</td>
+</tr>
+<tr>
+<td>URL</td>
+<td>INLINE</td>
+<td>SÍ</td>
+<td>URL válida.</td>
+</tr>
+<tr>
+<td>UUID</td>
+<td>INLINE</td>
+<td>SÍ</td>
+<td>UUID estándar.</td>
+</tr>
+<tr>
+<td>HEXADECIMAL</td>
+<td>INLINE</td>
+<td>SÍ</td>
+<td><code>[0-9A-Fa-f]+</code>.</td>
+</tr>
+<tr>
+<td>BINARY</td>
+<td>INLINE</td>
+<td>SÍ</td>
+<td>Cadena binaria.</td>
+</tr>
+<tr>
+<td>BASE64</td>
+<td>BLOCK</td>
+<td>NO</td>
+<td>Bloque Base64.</td>
+</tr>
+<tr>
+<td>CODE[language]</td>
+<td>BLOCK</td>
+<td>NO</td>
+<td>Código en <code>&lt;language&gt;</code>.</td>
+</tr>
+<tr>
+<td>EMPTY</td>
+<td>NONE</td>
+<td>SÍ</td>
+<td>Nodo estructural sin valor.</td>
+</tr>
+</tbody>
+</table>
+<h2>9.2. Reglas clave</h2>
+<ul>
+<li>
+<p>El tipo <strong>NO controla obligatoriedad</strong>, solo forma y validez del valor.
+La obligatoriedad de aparición se controla mediante cardinalidad.</p>
+</li>
+<li>
+<p>Tipos <strong>BLOCK-only</strong> (<code>TEXT MULTILINE</code>, <code>CODE:*</code>, <code>BASE64</code>)
+⇒ <strong>MUST NOT</strong> tener hijos.</p>
+</li>
+<li>
+<p><code>EMPTY</code>:</p>
+<ul>
+<li>Sin valor inline ni bloque.</li>
+<li>Hijos según <code>Childs&gt;&gt;</code> sí permitidos.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1>10. Modos del validador: <em>strict</em> y <em>non-strict</em></h1>
+<h2>10.1. Modo <em>strict</em> (equivalente al “modo cerrado”) — <strong>por defecto</strong></h2>
+<p>Un validador STXT Schema en modo <em>strict</em>:</p>
+<ul>
+<li>
+<p><strong>MUST</strong> exigir schema para cada namespace encontrado.</p>
+</li>
+<li>
+<p><strong>MUST</strong> rechazar nodos que no estén definidos en su schema.</p>
+</li>
+<li>
+<p><strong>MUST</strong> validar:</p>
+<ul>
+<li>Formas permitidas (<code>:</code>, <code>&gt;&gt;</code>, ninguno).</li>
+<li>Tipos del valor.</li>
+<li>Cardinalidades.</li>
+<li>Compatibilidad tipo/hijos.</li>
+<li>Conocimiento de schema para todos los namespaces referenciados.</li>
+</ul>
+</li>
+<li>
+<p><strong>MUST</strong> aplicar la regla de sección 7.1:
+<strong>si aparece un hijo en <code>Childs&gt;&gt;</code>, su definición debe existir en su schema.</strong></p>
+</li>
+</ul>
+<h2>10.2. Modo <em>non-strict</em> (modo abierto configurable)</h2>
+<p>Un validador <strong>MAY</strong> ofrecer un modo no-strict:</p>
+<ul>
+<li>
+<p>Si un namespace no tiene schema:</p>
+<ul>
+<li>Puede aceptar el documento pero <strong>SHOULD</strong> emitir warning.</li>
+</ul>
+</li>
+<li>
+<p>Si un <code>Node</code> no está definido:</p>
+<ul>
+<li>Puede aceptarse con warning.</li>
+</ul>
+</li>
+<li>
+<p>Hijos no contemplados en <code>Childs&gt;&gt;</code>:</p>
+<ul>
+<li>Se aceptan pero se marcan como &quot;no cubiertos por el schema&quot;.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Importante:</strong>
+Incluso en modo <em>non-strict</em>, la regla <strong>7.1</strong> se mantiene:</p>
+<blockquote>
+<p>Si un hijo aparece en <code>Childs&gt;&gt;</code> de un schema, ese hijo <strong>DEBE</strong> estar definido en su schema correspondiente.</p>
+</blockquote>
+<hr />
+<h1>11. Ejemplos Normativos</h1>
+<h2>11.1. Schema con referencias cross-namespace</h2>
+<pre><code class="language-stxt">Schema (@stxt.schema): com.example.docs
+    Node: Document
+        Type: EMPTY
+        Childs&gt;&gt;
+            (?) Metadata (@com.google.html)
+            (1) Content
+    Node: Content
+        Type: TEXT MULTILINE
+</code></pre>
+<p>Y en <code>com.google.html</code>:</p>
+<pre><code class="language-stxt">Schema (@stxt.schema): com.google.html
+    Node: Metadata
+        Type: TEXT INLINE
+</code></pre>
+<h2>11.2. Documento válido</h2>
+<pre><code class="language-stxt">Document (@com.example.docs):
+    Metadata (@com.google.html): info
+    Content&gt;&gt;
+        Línea 1
+        Línea 2
+</code></pre>
+<hr />
+<h1>12. Errores de Schema</h1>
+<p>Un schema es inválido si:</p>
+<ol>
+<li>Define dos <code>Node</code> con el mismo nombre.</li>
+<li>Usa un <code>Type</code> desconocido.</li>
+<li>Usa formas (<code>:</code>, <code>&gt;&gt;</code>) incompatibles con el tipo.</li>
+<li>Define <code>Childs&gt;&gt;</code> en un <code>Node</code> cuyo tipo no permite hijos.</li>
+<li>La cardinalidad es inválida.</li>
+<li>Referencia un namespace inexistente <strong>sin aportar schema para dicho namespace</strong>.</li>
+<li><strong>Aparece un hijo en <code>Childs&gt;&gt;</code> cuyo <code>Node</code> no está definido en su schema correspondiente</strong>.</li>
+</ol>
+<hr />
+<h1>13. Conformidad</h1>
+<p>Una implementación es conforme si:</p>
+<ul>
+<li>Implementa íntegramente este documento.</li>
+<li>Valida tipos, formas de valor y cardinalidades.</li>
+<li>Aplica la regla estricta de definición obligatoria de todos los nodos referenciados en <code>Childs&gt;&gt;</code>.</li>
+<li>Maneja correctamente los modos <em>strict</em> y <em>non-strict</em>.</li>
+<li>Rechaza documentos y schemas inválidos.</li>
+</ul>
+<hr />
+<h1>14. Schema del Schema (<code>@stxt.schema</code>)</h1>
+<p>Esta sección define el <strong>schema oficial</strong> del propio sistema de schemas: el meta-schema que valida todos los documentos del namespace <code>@stxt.schema</code>.</p>
+<hr />
+<h2>14.1. Consideraciones</h2>
+<ul>
+<li>
+<p>Todo documento schema es:</p>
+<pre><code class="language-stxt">Schema (@stxt.schema): &lt;namespace-objetivo&gt;
+</code></pre>
+</li>
+<li>
+<p>Un schema contiene:</p>
+<ul>
+<li>Opcionalmente una <code>Description</code>.</li>
+<li>Cero o más nodos <code>Node</code>.</li>
+</ul>
+</li>
+<li>
+<p>Cada <code>Node</code>:</p>
+<ul>
+<li>
+<p>Tiene valor inline (el nombre del nodo del namespace objetivo).</p>
+</li>
+<li>
+<p>Puede tener opcionalmente:</p>
+<ul>
+<li><code>Type</code></li>
+<li><code>Childs</code></li>
+<li><code>Description</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Los nombres (<code>Schema</code>, <code>Node</code>, <code>Type</code>, <code>Childs</code>, <code>Description</code>) pertenecen al namespace <code>@stxt.schema</code>.</p>
+</li>
+</ul>
+<hr />
+<h2>14.2. Meta-Schema completo</h2>
+<pre><code class="language-stxt">Schema (@stxt.schema): stxt.schema
+    Description: Schema that defines the STXT Schema language
+
+    # Nodo raíz del documento de schema
+    Node: Schema
+        Type: TEXT INLINE
+        Childs&gt;&gt;
+            (?)  Description
+            (*)  Node
+
+    # Define un nodo del namespace objetivo
+    Node: Node
+        Type: TEXT INLINE
+        Childs&gt;&gt;
+            (?)  Type
+            (?)  Childs
+            (?)  Description
+
+    # Tipo declarado para un Node (opcional, por defecto TEXT)
+    Node: Type
+        Type: TEXT INLINE
+
+    # Lista de hijos permitidos (bloque multiline)
+    Node: Childs
+        Type: TEXT MULTILINE
+
+    # Descripción opcional (texto general, inline o bloque)
+    Node: Description
+        Type: TEXT
+</code></pre>
+<hr />
+<h2>14.3. Lectura rápida</h2>
+<ul>
+<li>
+<p><code>Schema</code>
+Valor inline = namespace objetivo (ej. <code>com.example.docs</code>).
+Hijos: <code>Description</code> (?), <code>Node</code> (*).</p>
+</li>
+<li>
+<p><code>Node</code>
+Valor inline = nombre del nodo objetivo (ej. <code>Document</code>, <code>Autor</code>).
+Hijos opcionales:</p>
+<ul>
+<li><code>Type</code> ⇒ tipo concreto (si falta ⇒ <code>TEXT INLINE</code>).</li>
+<li><code>Childs</code> ⇒ bloque <code>Childs&gt;&gt;</code> literal.</li>
+<li><code>Description</code> ⇒ texto explicativo.</li>
+</ul>
+</li>
+<li>
+<p><code>Type</code>
+Inline (<code>TEXT INLINE</code>), con el nombre del tipo (<code>EMPTY</code>, <code>TEXT INLINE</code>, <code>NUMBER</code>, <code>CODE:json</code>, etc.).</p>
+</li>
+<li>
+<p><code>Childs</code>
+<code>TEXT MULTILINE</code>: contiene literalmente el bloque <code>Childs&gt;&gt;</code>.</p>
+</li>
+<li>
+<p><code>Description</code>
+<code>TEXT</code>: puede ser inline o multiline.</p>
+</li>
+</ul>
+<hr />
+<h2>14.4. Ejemplo mínimo válido</h2>
+<pre><code class="language-stxt">Schema (@stxt.schema): com.example.docs
+    Node: Document
+</code></pre>
+<p><code>Document</code> se considera de tipo <code>TEXT INLINE</code> (por defecto).</p>
+<hr />
+<h2>14.5. Ejemplo completo</h2>
+<pre><code class="language-stxt">Schema (@stxt.schema): com.example.docs
+    Description: Example schema
+    Node: Document
+        Type: EMPTY
+        Childs&gt;&gt;
+            (1) Title
+            (*) Author
+            (?) Metadata (@com.google.html)
+    Node: Title
+        Type: TEXT INLINE
+    Node: Author
+        Type: TEXT INLINE
+</code></pre>
+<h1>15. Fin del Documento</h1>
+
+		
+		
+																																																																																																																																																																																																																																														
+	<div class="column row book_nav clearfix">
+		           	<a style="float:left;"	href="lang-reference" title="Documentos <span class='STxT'>STXT</span>">&#x25C4; Documentos <span class='STxT'>STXT</span></a>
+				           	<a style="float:right;" href="lang-grammar" title="Grammar">Grammar &#x25BA;</a>
+			</div>
+  	</article>
+  
+	<aside id="index_content">
+			<div class="d-none d-md-block">
+				<h2><a id="index_1"></a><span class='STxT'>STXT</span></h2>
+					<div class="link">
+		<a href="index" >Introducción</a>
+	</div>
+				<div class="link">
+		<a href="lang-tutorial" >Tutorial</a>
+	</div>
+				<h2><a id="index_2"></a>Referencia del Lenguaje</h2>
+					<div class="link">
+		<a href="lang-reference" >Documentos <span class='STxT'>STXT</span></a>
+	</div>
+				<div class="link">
+		<a href="lang-schema-ref"  class="selected"  >Esquemas <span class='STxT'>STXT</span></a>
+	</div>
+				<div class="link">
+		<a href="lang-grammar" >Grammar</a>
+	</div>
+				<h2><a id="index_3"></a>Casos de uso</h2>
+					<div class="link">
+		<a href="use-cases-stxt2" ><span class='STxT'>STXT</span>2</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-corporate-docs" >Documentos Corporativos</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-wikipedia" >Wikipedia</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-cms" >CMS</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-editorial" >Publicaciones</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-config-files" >Ficheros configuración</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-open-api" >Open api</a>
+	</div>
+				<h2><a id="index_4"></a>Herramientas</h2>
+					<div class="link">
+		<a href="tools-parsers" >Parsers</a>
+	</div>
+				<div class="link">
+		<a href="tools-ides" >IDE's</a>
+	</div>
+				<div class="link">
+		<a href="tools-online-editor" >Editor online</a>
+	</div>
+		</div>
+	</aside>
+</div>
+		<footer><p>&copy; 2025 - Este obra está bajo una <a style="text-decoration:underline" rel="license" href="https://raw.githubusercontent.com/mombiela/semantic-web-builder/master/LICENSE">Licencia MIT</a>.</p></footer>
+	</body>
+</html>

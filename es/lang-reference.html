@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STXT-SPEC-DRAFT</title>
+	<meta name="description" content="${meta.getChild("description").text}">
+	<meta name="author" content="Joan Costa Mombiela">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+
+	<style>@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');</style>
+    <link rel="stylesheet" href="/css/site.css?v=20241210">
+    
+    
+    
+		
+			
+			<link rel="alternate" hreflang="en" href="https://stxt.dev/lang-reference" />
+				
+	<link rel="alternate" hreflang="x-default" href="https://stxt.dev/lang-reference" />
+</head>
+	
+	<body>
+		<header id="main_header">
+    <div class="title">
+		<a href="/es">
+		                  			<span class='STxT'>STXT</span>: Semantic Text
+			    </a>
+	</div>
+	<div class="subtitle"><a href="index">Built for humans. Reliable for machines.</a></div>
+	<ul>
+		<li><a href="contribute" title="Contribuir" rel="nofollow">Contribuir</a></li>
+		<li><b> | </b></li>
+					<li><b>Español</b></li>
+			<li><a href="../lang-reference" title="Español"><i>English</i></a></li>
+					</ul>
+</header>
+		<div class="top-bar">
+	<ul>
+		<li><a href="/es" title="Introducción">Introducción</a></li>
+		<li><a href="lang-tutorial" title="Tutorial">Tutorial</a></li>
+		<li><a href="use-cases-stxt2" title="Casos de uso">Casos de uso</a></li>
+		<li><a href="tools-parsers" title="Parsers">Herramientas</a></li>
+		<li class="link_src"><a href="lang-reference.stxt" target="lang-reference" title="File lang-reference.stxt"><span class='STxT'>STXT</span></a></li>
+	</ul>
+</div>
+	
+		<div id="main_content" class="clearfix">
+	<article>
+		
+																																																																																																																																																																																																																																														
+	<div class="column row book_nav clearfix">
+		           	<a style="float:left;"	href="lang-tutorial" title="Tutorial">&#x25C4; Tutorial</a>
+				           	<a style="float:right;" href="lang-schema-ref" title="Esquemas <span class='STxT'>STXT</span>">Esquemas <span class='STxT'>STXT</span> &#x25BA;</a>
+			</div>
+		
+		
+											<h1><a id="index_0"></a>STXT-SPEC-DRAFT</h1>
+							<p><strong>STXT (Semantic Text) — Core Language Specification</strong></p>
+<p><strong>Category:</strong> Standards Track</p>
+<p><strong>Status:</strong> Draft</p>
+<p><strong>Format:</strong> Markdown (RFC-style)</p>
+<hr />
+<h1>1. Introducción</h1>
+<p>Este documento define la especificación del lenguaje <strong>STXT (Semantic Text)</strong>.</p>
+<p>STXT es un lenguaje <strong>Human-First</strong>, diseñado para que su forma natural sea legible, clara y cómoda para las personas, manteniendo al mismo tiempo una estructura precisa y fácilmente procesable por máquinas.</p>
+<p>STXT es un formato textual jerárquico y semántico orientado a:</p>
+<ul>
+<li>Representar documentos y datos de manera clara.</li>
+<li>Ser extremadamente sencillo de leer y escribir.</li>
+<li>Ser trivial de parsear en cualquier lenguaje.</li>
+<li>Permitir tanto contenido estructurado como texto libre.</li>
+<li>Extender su semántica mediante <code>@stxt.schema</code>.</li>
+</ul>
+<p>Este documento describe la <strong>sintaxis base</strong> del lenguaje.</p>
+<hr />
+<h1>2. Terminología</h1>
+<p>Las palabras clave <strong>&quot;MUST&quot;</strong>, <strong>&quot;MUST NOT&quot;</strong>, <strong>&quot;SHOULD&quot;</strong>, <strong>&quot;SHOULD NOT&quot;</strong>, y <strong>&quot;MAY&quot;</strong> deben interpretarse según <strong>RFC 2119</strong>.</p>
+<hr />
+<h1>3. Codificación del Documento</h1>
+<p>Los documentos STXT <strong>SHOULD</strong> codificarse en <strong>UTF-8 sin BOM</strong>.</p>
+<p>Un parser:</p>
+<ul>
+<li><strong>MAY</strong> aceptar documentos que comiencen con BOM.</li>
+<li><strong>SHOULD</strong> emitir una advertencia si aparece.</li>
+</ul>
+<hr />
+<h1>4. Unidad Sintáctica: Nodo</h1>
+<p>Cada línea no vacía del documento que no sea comentario ni parte de un bloque <code>&gt;&gt;</code> define un <strong>nodo</strong>.</p>
+<p>Existen dos formas de nodo:</p>
+<ol>
+<li>
+<p><strong>Nodo simple o contenedor</strong></p>
+<pre><code class="language-stxt">Nombre: ValorInline
+</code></pre>
+</li>
+<li>
+<p><strong>Nodo de bloque textual (<code>&gt;&gt;</code>)</strong></p>
+<pre><code class="language-stxt">Nombre &gt;&gt;
+    línea 1
+    línea 2
+</code></pre>
+</li>
+</ol>
+<p>Un nodo puede incluir opcionalmente un namespace:</p>
+<pre><code class="language-stxt">Nombre (@namespace):
+Nombre (@namespace) &gt;&gt;
+</code></pre>
+<h2>4.1 Normalización del nombre del nodo</h2>
+<p>El nombre del nodo se toma a partir del texto comprendido entre:</p>
+<ul>
+<li>El primer carácter no perteneciente a la indentación, y</li>
+<li>El primer carácter que pertenezca a cualquiera de:
+<ul>
+<li>El inicio de un namespace <code>(</code>,</li>
+<li>El carácter <code>:</code>,</li>
+<li>El operador <code>&gt;&gt;</code>,</li>
+<li>O el fin de línea.</li>
+</ul>
+</li>
+</ul>
+<p>Sobre ese fragmento se aplica:</p>
+<ul>
+<li>Eliminación de espacios y tabuladores iniciales (trim a la izquierda).</li>
+<li>Eliminación de espacios y tabuladores finales (trim a la derecha).</li>
+</ul>
+<p>El resultado de esta normalización es el <strong>nombre lógico del nodo</strong>.</p>
+<p>Un nodo cuyo nombre lógico sea la cadena vacía (<code>&quot;&quot;</code>) es inválido y <strong>MUST</strong> provocar un error de parseo.</p>
+<p>Ejemplos equivalentes a nivel de nombre:</p>
+<pre><code class="language-stxt">Nombre: valor
+Nombre   : valor
+   Nombre: valor
+   Nombre   : valor
+Nombre   (@ns):
+Nombre(@ns):
+Nombre   &gt;&gt;
+Nombre&gt;&gt;
+</code></pre>
+<hr />
+<h1>5. Nodos con <code>:</code> (inline o contenedor)</h1>
+<p>La forma con <code>:</code> define un nodo que:</p>
+<ul>
+<li>
+<p>Puede tener valor inline (opcional).</p>
+</li>
+<li>
+<p>Puede no tener valor inline (nodo vacío).</p>
+</li>
+<li>
+<p>Puede tener hijos (nodos anidados).</p>
+</li>
+<li>
+<p>Su contenido estructurado incluye:</p>
+<ul>
+<li>La propia línea del nodo.</li>
+<li>Sus descendientes con mayor indentación que no formen parte de bloques <code>&gt;&gt;</code>.</li>
+</ul>
+</li>
+</ul>
+<p>Ejemplos:</p>
+<pre><code class="language-stxt">Titulo: Informe
+Autor: Joan
+Nodo:
+Nodo: Valor
+Nodo:
+    SubNodo: 123
+</code></pre>
+<hr />
+<h1>6. Nodos con <code>&gt;&gt;</code> (bloque textual)</h1>
+<p>La forma con <code>&gt;&gt;</code> define un bloque de <strong>texto literal</strong>.</p>
+<p>Ejemplos válidos:</p>
+<pre><code class="language-stxt">Descripcion &gt;&gt;
+    Línea 1
+    Línea 2
+</code></pre>
+<pre><code class="language-stxt">Seccion&gt;&gt;
+    Acepta el operador sin espacio
+</code></pre>
+<h2>6.1 Reglas formales</h2>
+<ul>
+<li>
+<p>La línea del nodo <code>&gt;&gt;</code> <strong>MUST NOT</strong> contener contenido significativo tras <code>&gt;&gt;</code>, excepto espacios opcionales.</p>
+</li>
+<li>
+<p>Todas las líneas con indentación <strong>estrictamente mayor</strong> que la del nodo <code>&gt;&gt;</code> pertenecen al <strong>contenido textual del bloque</strong>.</p>
+</li>
+<li>
+<p>Dentro del bloque:</p>
+<ul>
+<li>El parser <strong>MUST NOT</strong> interpretar ninguna línea como nodo estructurado, aunque contenga <code>:</code> u otra sintaxis de STXT.</li>
+<li>El parser <strong>MUST NOT</strong> interpretar líneas que comienzan por <code>#</code> como comentarios; todas las líneas son texto literal.</li>
+</ul>
+</li>
+<li>
+<p>El bloque termina cuando aparece una <strong>línea no vacía</strong> cuya indentación es <strong>menor o igual</strong> que la indentación del nodo <code>&gt;&gt;</code>.</p>
+</li>
+<li>
+<p>Las líneas vacías <strong>dentro del bloque</strong> se conservan tal cual y <strong>MUST NOT</strong> cerrar el bloque, independientemente de su indentación.</p>
+</li>
+</ul>
+<p>Nota: la eliminación de líneas vacías finales del bloque se describe en la sección 10.3.</p>
+<h3>6.2 Ejemplo</h3>
+<pre><code class="language-stxt">Bloque &gt;&gt;
+    Texto
+        Hijo: valor SI permitido, es texto, no se parsea
+        Otro hijo: SI permitido
+    # Esto también es texto
+SiguienteNodo: valor
+</code></pre>
+<p>En este ejemplo:</p>
+<ul>
+<li>Todo lo indentado por debajo de <code>Bloque &gt;&gt;</code> es texto literal.</li>
+<li><code>Hijo: valor</code> y <code>Otro hijo: SI permitido</code> <strong>no</strong> son nodos, sino texto.</li>
+<li><code>SiguienteNodo: valor</code> está fuera del bloque <code>&gt;&gt;</code>.</li>
+</ul>
+<hr />
+<h1>7. Namespaces</h1>
+<p>Un namespace es opcional y se especifica así:</p>
+<pre><code class="language-stxt">Nodo (@com.example.docs):
+</code></pre>
+<p>Reglas:</p>
+<ul>
+<li>Un namespace <strong>MUST</strong> empezar por <code>@</code>.</li>
+<li><strong>SHOULD</strong> usar formato jerárquico (<code>@a.b.c</code>).</li>
+<li>Se hereda por los nodos hijos.</li>
+<li>El namespace por defecto es <strong><code>@stxt</code></strong>.</li>
+<li>Un nodo hijo puede redefinir su namespace indicando (@otro.namespace), en cuyo caso usa ese namespace en lugar del heredado.</li>
+</ul>
+<hr />
+<h1>8. Indentación y Jerarquía</h1>
+<p>La indentación define la jerarquía estructurada del documento.</p>
+<h2>8.1 Indentación Permitida</h2>
+<p>Un documento STXT:</p>
+<ul>
+<li>
+<p><strong>MAY</strong> usar únicamente espacios o únicamente tabuladores.</p>
+</li>
+<li>
+<p><strong>MUST NOT</strong> mezclarlos.</p>
+</li>
+<li>
+<p>Si usa espacios:</p>
+<ul>
+<li><strong>MUST</strong> usar exactamente <strong>4 espacios</strong> por nivel.</li>
+</ul>
+</li>
+<li>
+<p>Si usa tabs:</p>
+<ul>
+<li>Cada tab representa exactamente 1 nivel.</li>
+</ul>
+</li>
+</ul>
+<h2>8.2 Jerarquía</h2>
+<ul>
+<li>La indentación <strong>MUST</strong> aumentar de forma consecutiva (no se permiten saltos).</li>
+<li>Los nodos hijos <strong>MUST</strong> tener mayor indentación que su padre.</li>
+<li>La indentación dentro de un bloque <code>&gt;&gt;</code> <strong>no afecta a la jerarquía estructural</strong>: es simplemente texto.</li>
+</ul>
+<hr />
+<h1>9. Comentarios</h1>
+<p>Fuera de bloques <code>&gt;&gt;</code>, una línea es un comentario si, tras su indentación, el primer carácter es <code>#</code>.</p>
+<p>Ejemplo:</p>
+<pre><code class="language-stxt"># Comentario raíz
+Nodo:
+    # Comentario interior
+</code></pre>
+<h2>9.1 Comentarios dentro de bloques <code>&gt;&gt;</code></h2>
+<p>Dentro de un bloque <code>&gt;&gt;</code>:</p>
+<ul>
+<li>
+<p>Toda línea con indentación igual o superior a la indentación mínima del contenido del bloque <strong>MUST</strong> tratarse como texto literal, incluso si empieza por <code>#</code>.</p>
+</li>
+<li>
+<p>Una línea menos indentada que el bloque termina el bloque y puede ser:</p>
+<ul>
+<li>Un comentario, si empieza por <code>#</code>.</li>
+<li>Un nodo estructurado.</li>
+</ul>
+</li>
+</ul>
+<p>Ejemplo:</p>
+<pre><code class="language-stxt">Documento:
+    Texto &gt;&gt;
+        # Esto es texto
+        Línea normal
+            # También es texto
+    # Esto sí es comentario
+</code></pre>
+<hr />
+<h1>10. Normalización de espacios en blanco</h1>
+<p>Esta sección define cómo deben normalizarse los espacios en blanco para garantizar que distintas implementaciones produzcan la misma representación lógica a partir del mismo texto STXT.</p>
+<h2>10.1 Valores inline (<code>:</code>)</h2>
+<p>Al parsear un nodo con <code>:</code>:</p>
+<ol>
+<li>
+<p>El parser toma todos los caracteres desde inmediatamente después de <code>:</code> hasta el fin de línea.</p>
+</li>
+<li>
+<p>El valor inline <strong>MUST</strong> normalizarse aplicando:</p>
+<ul>
+<li>Eliminación de espacios y tabuladores iniciales (trim a la izquierda).</li>
+<li>Eliminación de espacios y tabuladores finales (trim a la derecha).</li>
+</ul>
+</li>
+</ol>
+<p>Esto implica que las siguientes líneas son equivalentes a nivel de parseo:</p>
+<pre><code class="language-stxt">Nombre: Joan
+Nombre:     Joan
+Nombre: Joan    
+Nombre:     Joan    
+</code></pre>
+<p>En todos los casos, el valor lógico del nodo <code>Nombre</code> es <code>&quot;Joan&quot;</code>.</p>
+<p>Si tras el <code>trim</code> el valor queda vacío, el valor inline se considera la cadena vacía (<code>&quot;&quot;</code>).</p>
+<h2>10.2 Líneas dentro de bloques <code>&gt;&gt;</code></h2>
+<p>Para cada línea que pertenece a un bloque <code>&gt;&gt;</code>:</p>
+<ol>
+<li>El parser determina el contenido de la línea a partir del texto que sigue a la indentación mínima del bloque (es decir, elimina solo la indentación de bloque, pero conserva cualquier indentación adicional como parte del texto).</li>
+<li>Sobre ese contenido, el parser <strong>MUST</strong> eliminar todos los espacios y tabuladores finales (trim a la derecha).</li>
+</ol>
+<p>Ejemplo de canonicalización de líneas:</p>
+<pre><code class="language-stxt">Bloque &gt;&gt;
+    Hola    
+        Mundo        
+</code></pre>
+<p>Representación lógica del contenido del bloque:</p>
+<ul>
+<li>Línea 1: <code>&quot;Hola&quot;</code></li>
+<li>Línea 2: <code>&quot;    Mundo&quot;</code>  (las 4 espacios adicionales tras la indentación mínima se conservan, los espacios del final se eliminan)</li>
+</ul>
+<h2>10.3 Líneas vacías en bloques <code>&gt;&gt;</code></h2>
+<ul>
+<li>Las líneas vacías <strong>intermedias</strong> dentro del bloque (es decir, entre líneas no vacías) <strong>MUST</strong> preservarse como líneas vacías (<code>&quot;&quot;</code>) en la representación lógica del texto.</li>
+<li>Tras leer todas las líneas de un bloque <code>&gt;&gt;</code>, las implementaciones <strong>MUST</strong> eliminar las líneas vacías consecutivas al final del bloque (si las hubiera).</li>
+</ul>
+<p>En otras palabras:</p>
+<ul>
+<li>Las líneas en blanco <strong>no cierran</strong> el bloque.</li>
+<li>No se conservan “saltos de línea sueltos” al final del bloque a nivel lógico.</li>
+</ul>
+<p>Ejemplo:</p>
+<pre><code class="language-stxt">Texto &gt;&gt;
+    Línea 1
+    
+    Línea 2
+    
+    
+</code></pre>
+<p>Contenido lógico del bloque:</p>
+<ul>
+<li>Línea 1: <code>&quot;Línea 1&quot;</code></li>
+<li>Línea 2: <code>&quot;&quot;</code></li>
+<li>Línea 3: <code>&quot;Línea 2&quot;</code></li>
+</ul>
+<p>Las líneas vacías finales después de <code>&quot;Línea 2&quot;</code> se eliminan en la representación lógica.</p>
+<h2>10.4 Normalización del nombre del nodo</h2>
+<p>La normalización del nombre del nodo ya se define formalmente en la <strong>sección 4.1</strong>.
+Como recordatorio operativo:</p>
+<ul>
+<li>Antes de interpretar <code>:</code> o <code>&gt;&gt;</code>, el parser <strong>MUST</strong> obtener el nombre lógico aplicando la normalización descrita en 4.2.</li>
+<li>Esto implica eliminar espacios y tabuladores a izquierda y derecha del fragmento que constituye el nombre.</li>
+<li>Distintas variantes con espacios siguen produciendo el mismo nombre lógico.</li>
+</ul>
+<p>Ejemplo recordatorio:</p>
+<pre><code class="language-stxt">Nombre: valor
+Nombre : valor
+Nombre    :   valor
+</code></pre>
+<p>En los tres casos, el nombre lógico del nodo es <code>&quot;Nombre&quot;</code>.</p>
+<hr />
+<h1>11. Reglas de Error</h1>
+<p>Un documento es inválido si ocurre alguna de estas condiciones:</p>
+<ol>
+<li>Mezcla de espacios y tabuladores.</li>
+<li>Espacios que no sean múltiplos de 4 (cuando se usan espacios para indentación).</li>
+<li>Saltos en los niveles de indentación.</li>
+<li>Un nodo <code>&gt;&gt;</code> contiene contenido significativo inline en la misma línea que <code>&gt;&gt;</code>.</li>
+<li>Un nodo no contiene ni <code>:</code> ni <code>&gt;&gt;</code>.</li>
+<li>Un namespace no empieza por <code>@</code>.</li>
+<li>Se usa <code>:</code> y <code>&gt;&gt;</code> en la misma línea.</li>
+</ol>
+<p>Un parser conforme <strong>MUST</strong> rechazar el documento.</p>
+<hr />
+<h1>12. Conformidad</h1>
+<p>Una implementación STXT es conforme si:</p>
+<ul>
+<li>Implementa la sintaxis descrita en este documento.</li>
+<li>Aplica las reglas estrictas de indentación y jerarquía.</li>
+<li>Interpreta correctamente nodos con <code>:</code> y bloques <code>&gt;&gt;</code>.</li>
+<li>Interpreta comentarios fuera de bloques <code>&gt;&gt;</code>.</li>
+<li>Trata <strong>todo</strong> lo dentro de bloques <code>&gt;&gt;</code> como texto literal.</li>
+<li>Aplica las reglas de normalización de espacios en blanco de la sección 10.</li>
+<li>Rechaza documentos inválidos según la sección 11.</li>
+</ul>
+<hr />
+<h1>13. Extensión de Archivo y Media Type</h1>
+<h2>13.1 Extensión de Archivo</h2>
+<p>Los documentos STXT <strong>SHOULD</strong> usar la extensión:</p>
+<pre><code class="language-text">.stxt
+</code></pre>
+<h2>13.2 Media Type (MIME)</h2>
+<p>Media type oficial:</p>
+<pre><code class="language-text">text/stxt
+</code></pre>
+<p>Alternativa compatible:</p>
+<pre><code class="language-text">text/plain
+</code></pre>
+<hr />
+<h1>14. Ejemplos Normativos</h1>
+<h3>14.1 Documento válido</h3>
+<pre><code class="language-stxt">Documento (@com.example.docs):
+    Autor: Joan
+    Fecha: 03/12/2025
+    Resumen &gt;&gt;
+        Este es un bloque de texto.
+        Con varias líneas.
+    Config:
+        Modo: Activo
+</code></pre>
+<h3>14.2 Bloque con líneas vacías</h3>
+<pre><code class="language-stxt">Texto&gt;&gt;
+    
+    Línea 2
+    
+    
+</code></pre>
+<p>Contenido lógico del bloque:</p>
+<ol>
+<li><code>&quot;&quot;</code></li>
+<li><code>&quot;Línea 2&quot;</code></li>
+</ol>
+<h3>14.3 Comentarios dentro y fuera de bloques</h3>
+<pre><code class="language-stxt">Documento:
+    Cuerpo &gt;&gt;
+        # Esto es texto
+        Más texto
+    # Esto sí es comentario
+</code></pre>
+<h3>14.4 Bloque con “pseudo-hijos” (válido)</h3>
+<pre><code class="language-stxt">Bloque &gt;&gt;
+    Texto
+        Hijo: valor SI permitido
+        Otro hijo: SI permitido
+    # Esto también es texto
+Siguiente: Nodo
+</code></pre>
+<h3>14.5 Inválido: mezcla de indentación</h3>
+<pre><code class="language-stxt">A:
+    B:
+\t\tC: valor
+</code></pre>
+<hr />
+<h1>15. Apéndice A — Gramática (Informal)</h1>
+<pre><code class="language-text">Nodo             = Indent Nombre NamespaceOpt (InlineOpt | BlockOpt)
+NamespaceOpt     = &quot;(&quot; &quot;@&quot; Ident &quot;)&quot; 
+InlineOpt        = &quot;:&quot; Esp? TextoInline?
+BlockOpt         = Esp? &quot;&gt;&gt;&quot;
+
+TextoInline      = cualquier contenido hasta el fin de línea
+BloqueTexto      = líneas indentadas (texto literal, no estructurado)
+
+Comentario       = Indent &quot;#&quot; Texto       ; Solo fuera de bloques '&gt;&gt;'
+
+# Regla esencial:
+#  - Dentro de un bloque '&gt;&gt;', cualquier línea con indentación &gt;= la
+#    indentación mínima del bloque es texto.
+#  - Las líneas vacías nunca cierran el bloque.
+#  - Una línea no vacía con indentación &lt;= la del nodo '&gt;&gt;' lo cierra.
+
+Indent           = (&quot;    &quot;)* | (&quot;\t&quot;)*
+</code></pre>
+<hr />
+<h1>16. Apéndice B — Interacción con <code>@stxt.schema</code></h1>
+<p>El sistema de schemas permite añadir validación semántica a documentos STXT <strong>sin modificar la sintaxis base</strong> del lenguaje.</p>
+<p>El núcleo STXT no define cómo debe reaccionar una implementación: el comportamiento pertenece exclusivamente al sistema de schemas (<em>STXT-SCHEMA-SPEC</em>).</p>
+<p>Un schema es un documento STXT cuyo namespace es:</p>
+<pre><code class="language-stxt">@stxt.schema
+</code></pre>
+<p>y cuyo objetivo es definir las reglas estructurales, tipos de valor y cardinalidades de los nodos pertenecientes a un namespace concreto.</p>
+<p>El núcleo STXT <strong>no interpreta</strong> estas reglas; únicamente define cómo se expresan y cómo se combinan mediante namespaces.</p>
+<h2>16.1. Asociación de un schema a un namespace</h2>
+<p>Para asociar un schema al namespace <code>com.example.docs</code>, se escribe un documento:</p>
+<pre><code class="language-stxt">Schema (@stxt.schema): com.example.docs
+    Node: Documento
+        Childs&gt;&gt;
+            (1) Campo1
+            (?) Campo2
+            (*) Texto
+    Node: Campo1
+    Node: Campo2
+    Node: Texto
+</code></pre>
+<h2>16.2. Aplicación a documentos STXT</h2>
+<p>Un documento que declare el mismo namespace:</p>
+<pre><code class="language-stxt">Documento (@com.example.docs):
+    Campo1: valor
+    Texto: uno
+    Texto: dos
+</code></pre>
+<p>puede ser validado por una implementación que soporte schemas STXT:</p>
+<ul>
+<li>Validando la presencia de nodos según <code>Node</code> del schema.</li>
+<li>Validando tipos de valor (<code>TEXT</code>, <code>DATE</code>, <code>NUMBER</code>, etc.).</li>
+<li>Validando cardinalidades definidas en <code>Childs&gt;&gt;</code>.</li>
+</ul>
+<h2>16.3. Independencia del núcleo</h2>
+<p>STXT <strong>MUST NOT</strong> imponer reglas semánticas provenientes de schemas.
+El sistema de schemas es un componente separado y opcional que opera <strong>sobre</strong> el STXT ya parseado.</p>
+<hr />
+<h1>17. Fin del Documento</h1>
+
+		
+		
+																																																																																																																																																																																																																																														
+	<div class="column row book_nav clearfix">
+		           	<a style="float:left;"	href="lang-tutorial" title="Tutorial">&#x25C4; Tutorial</a>
+				           	<a style="float:right;" href="lang-schema-ref" title="Esquemas <span class='STxT'>STXT</span>">Esquemas <span class='STxT'>STXT</span> &#x25BA;</a>
+			</div>
+  	</article>
+  
+	<aside id="index_content">
+			<div class="d-none d-md-block">
+				<h2><a id="index_1"></a><span class='STxT'>STXT</span></h2>
+					<div class="link">
+		<a href="index" >Introducción</a>
+	</div>
+				<div class="link">
+		<a href="lang-tutorial" >Tutorial</a>
+	</div>
+				<h2><a id="index_2"></a>Referencia del Lenguaje</h2>
+					<div class="link">
+		<a href="lang-reference"  class="selected"  >Documentos <span class='STxT'>STXT</span></a>
+	</div>
+				<div class="link">
+		<a href="lang-schema-ref" >Esquemas <span class='STxT'>STXT</span></a>
+	</div>
+				<div class="link">
+		<a href="lang-grammar" >Grammar</a>
+	</div>
+				<h2><a id="index_3"></a>Casos de uso</h2>
+					<div class="link">
+		<a href="use-cases-stxt2" ><span class='STxT'>STXT</span>2</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-corporate-docs" >Documentos Corporativos</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-wikipedia" >Wikipedia</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-cms" >CMS</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-editorial" >Publicaciones</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-config-files" >Ficheros configuración</a>
+	</div>
+				<div class="link">
+		<a href="use-cases-open-api" >Open api</a>
+	</div>
+				<h2><a id="index_4"></a>Herramientas</h2>
+					<div class="link">
+		<a href="tools-parsers" >Parsers</a>
+	</div>
+				<div class="link">
+		<a href="tools-ides" >IDE's</a>
+	</div>
+				<div class="link">
+		<a href="tools-online-editor" >Editor online</a>
+	</div>
+		</div>
+	</aside>
+</div>
+		<footer><p>&copy; 2025 - Este obra está bajo una <a style="text-decoration:underline" rel="license" href="https://raw.githubusercontent.com/mombiela/semantic-web-builder/master/LICENSE">Licencia MIT</a>.</p></footer>
+	</body>
+</html>

@@ -41,40 +41,52 @@
 		<div class="top-bar">
 	<ul>
 		<li><a href="/" title="Introduction">Introduction</a></li>
-		<li><a href="tutorial" title="Tutorial">Tutorial</a></li>
-		<li><a href="examples" title="Examples">Examples</a></li>
-		<li><a href="parsers" title="Parsers">Parsers</a></li>
+		<li><a href="lang-tutorial" title="Tutorial">Tutorial</a></li>
+		<li><a href="use-cases-stxt2" title="Use cases">Use cases</a></li>
+		<li><a href="tools-parsers" title="Parsers">Tools</a></li>
 		<li class="link_src"><a href="index.stxt" target="index" title="File index.stxt"><span class='STxT'>STXT</span></a></li>
 	</ul>
 </div>
 	
 		<div id="main_content" class="clearfix">
-  <article>
-		<div class="column row book_nav clearfix">
+	<article>
 		
-				           	<a style="float:right;" href="tutorial" title="Next">Next &#x25BA;</a>
+																																																																																																																						
+	<div class="column row book_nav clearfix">
+				           	<a style="float:right;" href="tutorial" title="Tutorial">Tutorial &#x25BA;</a>
 			</div>
-
-	
-							<h1><a id="index_0"></a><span class='STxT'>STXT</span> in 1 Minute</h1>
-					<div class="row">
+		
+		
+											<h1><a id="index_0"></a><span class='STxT'>STXT</span> in 1 Minute</h1>
+							<div class="row">
 		<div class="alert"><p><strong><span class='STxT'>STXT</span></strong>: a language for building structured text documents, with namespaces and validation.</p>
 </div>
 	</div>
-				<h2><a id="index_1"></a>Documents with namespace</h2>
-					<p>Example of a document with an <code>Email</code> element from the <code>com.example.docs</code> namespace</p>
+						<h2><a id="index_1"></a>Documents</h2>
+							<p>Documents are built...</p>
 
-				<pre><strong>Email (com.example.docs)</strong>:
+						<pre><strong>Email</strong>:
 	From: John Smith
 	To: Mery Adams
 	Cc: Keyla Brown
 	Title: Project report
-	Body Content: 
+	<strong>Body Content &gt;&gt;</strong>
+		Hello Mery! 
+		The book is finished!</pre>
+						<h2><a id="index_2"></a>Documents with namespace</h2>
+							<p>Example of a document with an <code>Email</code> element from the <code>com.example.docs</code> namespace</p>
+
+						<pre><strong>Email (@com.example.docs)</strong>:
+	From: John Smith
+	To: Mery Adams
+	Cc: Keyla Brown
+	Title: Project report
+	Body Content &gt;&gt;
 		Hello Mery!! 
 		The book is finished!!</pre>
-				<p>And the namespace definition</p>
+						<p>And the namespace definition</p>
 
-				<pre><strong>Namespace: com.example.docs</strong>
+						<pre><strong>Schema (@stxt.schema): com.example.docs</strong>
 	Email:
 		From: (1)
 		To: (1)
@@ -82,58 +94,42 @@
 		Bcc: (?)
 		Title: (1)
 		Body Content: (1) TEXT</pre>
-				<h2><a id="index_2"></a>Documents without namespace</h2>
-					<p>Documents without namespace must mark multiline nodes with <code>:</code> before the name:</p>
-
-				<pre>Email:
-	From: John Smith
-	To: Mery Adams
-	Cc: Keyla Brown
-	Title: Project report
-	<strong>:Body Content:</strong>
-		Hello Mery! 
-		The book is finished!</pre>
-	
-		<div class="column row book_nav clearfix">
 		
-				           	<a style="float:right;" href="tutorial" title="Next">Next &#x25BA;</a>
+		
+																																																																																																																						
+	<div class="column row book_nav clearfix">
+				           	<a style="float:right;" href="tutorial" title="Tutorial">Tutorial &#x25BA;</a>
 			</div>
-  </article>
+  	</article>
   
-  <aside id="index_content">
-			<div class="d-none d-md-block" style="margin-bottom:3rem;">
-											<h2><a id="index_3"></a>Introduction</h2>
-							<div class="link">
-		<a href="index"  class="selected"  ><span class='STxT'>STXT</span> in 1 Minute</a>
+	<aside id="index_content">
+			<div class="d-none d-md-block">
+							<h2><a id="index_3"></a><span class='STxT'>STXT</span></h2>
+					<div class="link">
+		<a href="index"  class="selected"  >Introduction</a>
 	</div>
-						<div class="link">
-		<a href="tutorial" ><span class='STxT'>STXT</span> Tutorial</a>
+				<div class="link">
+		<a href="tutorial" >Tutorial</a>
 	</div>
-						<h2><a id="index_4"></a>The Language</h2>
-							<div class="link">
-		<a href="raw-docs" >Documents without namespace</a>
+				<div class="link">
+		<a href="reference" ><span class='STxT'>STXT</span> Documents</a>
 	</div>
-						<div class="link">
-		<a href="ns-docs" >Documents with namespace</a>
+				<div class="link">
+		<a href="schema" ><span class='STxT'>STXT</span> Schemas</a>
 	</div>
-						<div class="link">
-		<a href="compact" >Compaction</a>
-	</div>
-						<div class="link">
-		<a href="examples" >Examples</a>
-	</div>
-						<h2><a id="index_5"></a>Technical Resources</h2>
-							<div class="link">
+				<div class="link">
 		<a href="ebnf" >EBNF</a>
 	</div>
-						<div class="link">
-		<a href="doc-parsing" >Document Parsing</a>
+				<h2><a id="index_4"></a>Use Cases</h2>
+					<div class="link">
+		<a href="use-case-cms" >CMS</a>
 	</div>
-						<div class="link">
-		<a href="parsers" >Available Parsers</a>
+				<h2><a id="index_5"></a>Technical Resources</h2>
+					<div class="link">
+		<a href="tools-parsers" >Parsers</a>
 	</div>
-				</div>
-	  </aside>
+		</div>
+	</aside>
 </div>
 		<footer><p>&copy; 2025 - This work is licensed under a <a rel="license" style="text-decoration:underline" href="https://raw.githubusercontent.com/mombiela/semantic-web-builder/master/LICENSE">MIT License</a>.</p></footer>
 	</body>
