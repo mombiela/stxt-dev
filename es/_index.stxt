@@ -4,8 +4,8 @@ Document(dev.stxt.namespace): STXT: El Libro
 		
 	SubHeader: Introducción
 	
-	Link: STxT en 1 Minuto (index)
-	Link: STxT Tutorial (tutorial)
+	Link: @STXT@ en 1 Minuto (index)
+	Link: @STXT@ Tutorial (tutorial)
 			
 	SubHeader: El lenguaje
 	
